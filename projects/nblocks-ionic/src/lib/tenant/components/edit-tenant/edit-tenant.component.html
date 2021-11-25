@@ -1,0 +1,37 @@
+<ion-row>
+  <ion-col class="main-column">
+    <h4>
+      {{ 'TENANT' | translate }}
+    </h4>
+    <div class="setting">
+      <div class="subtitle-2">
+        {{ 'COMPANY_NAME' | translate }}
+      </div>
+
+      <div class="setting-value">
+        {{ (tenant$ | async)?.name }}
+      </div>
+    </div>
+
+    <div class="setting" [nblocksAccessControl]='EDIT_ROLES'>
+      <div class="subtitle-2">
+        {{ 'LANGUAGE' | translate }}
+      </div>
+
+      <div class="setting-value">
+        {{ (tenant$ | async)?.locale }}
+        <!-- <p-dropdown [options]="languages" [(ngModel)]="mutableTenant.locale" (onChange)="updateTenant()"></p-dropdown> -->
+      </div>
+    </div>
+
+    <div class="setting">
+      <div class="subtitle-2">
+        {{ 'DATE_CREATED' | translate }}
+      </div>
+
+      <div class="setting-value">
+        {{ (tenant$ | async)?.createdAt | date: ('DATETIME_FORMAT_MEDIUM' | translate) }}
+      </div>
+    </div>
+  </ion-col>
+</ion-row>

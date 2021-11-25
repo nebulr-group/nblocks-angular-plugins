@@ -1,0 +1,7 @@
+.subtitle-2,.setting-value {
+    display: inline
+}
+
+.setting-value {
+    font-weight: bold;
+}

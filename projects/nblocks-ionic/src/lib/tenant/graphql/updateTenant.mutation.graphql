@@ -1,0 +1,10 @@
+mutation UpdateTenant($name: String!, $locale: String!) {
+  updateTenant(name: $name, locale: $locale) {
+    id
+    name
+    locale
+    logo
+    plan
+    createdAt
+  }
+}
