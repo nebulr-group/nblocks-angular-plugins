@@ -25,7 +25,7 @@ npm i @nebulr-group/nblocks-ionic
 1. From your project root, run
 
 ```javascript
-npx @nebulr-group/nblocks-ionic setup
+npx @nebulr-group/nblocks-plugin-tool setup-ionic
 ```
 
 to get the initial config structure and peer dependencies in place. More on that later.
@@ -54,7 +54,7 @@ import { NblocksIonicModule, AUTH_HTTP_INTERCEPTOR_PROVIDERS } from 'nblocks-ion
 })
 ```
 
-3. Start your app and expect it to work exactly the same as before!
+3. Start your app `ionic serve`!
 
 ## Customizing
 
