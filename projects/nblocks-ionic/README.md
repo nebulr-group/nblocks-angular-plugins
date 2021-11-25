@@ -45,7 +45,7 @@ import { NblocksIonicModule, AUTH_HTTP_INTERCEPTOR_PROVIDERS } from 'nblocks-ion
             logoPath: "https://www.northwhistle.com/wp-content/uploads/2021/08/NorthWhistle-logo-retina-2.png", // Url to your app logo
             privacyPolicyUrl: "https://www.myapp.com/privacy", // Url to your app privacy policy
             graphqlPath: "/graphql", // If you have exposed the GraphQL endpoint somewhere else than standard on NBlocks API
-            openRoutes: ["/home"] // Retrieving a 401 response, the interceptors will not redirect to login if user is on any of these UI routes
+            openRoutes: ["/"] // Retrieving a 401 response, the interceptors will not redirect to login if user is on any of these UI routes
         })
 
     providers: [
@@ -56,14 +56,54 @@ import { NblocksIonicModule, AUTH_HTTP_INTERCEPTOR_PROVIDERS } from 'nblocks-ion
 
 3. Start your app `ionic serve`!
 
+You now have new routes under `/auth` and loads of more!
+
+## Test it out!
+**Before any of these tests, make sure your NBlocks api is up and running serving your UI.**
+
+1)
+In your app.component.html add the following to see your current auth context. It should most likely say that you're unauthenticated for now.
+```
+<nblocks-current-user-debug></nblocks-current-user-debug>
+```
+
+2)
+Navigate to `auth/login` and enter the following credentials:`john.doe@example.com:XXXXX`
+
+You should be brought back to `/` where the `nblocks-current-user-debug` component now show's something like this:
+```
+{
+  "user": {
+    "id": "605b603cfeb49f00082686b8",
+    "role": "OWNER",
+    "email": "john.doe@example.com",
+    "username": "john.doe@example.com",
+    "fullName": "John Doe",
+    "onboarded": true,
+    "tenant": {
+      "id": "605b603cfeb49f00082686b7",
+      "name": "Monsters Inc",
+      "locale": "en"
+    }
+  },
+  "authenticated": true
+}
+```
+3)
+As you're now logged in. Try the following routes:
+
+`/user`
+`/tenant`
+
 ## Customizing
 
 The setup script created just the minimal configuration needed for the project to start. It placed some translation files under the `assets` folder which you can edit and add the lingo you want.
 
+Add code to make a http call via a provider
+
 ### Using translations
 
 TBD
-
 
 ## Deep dive
 
