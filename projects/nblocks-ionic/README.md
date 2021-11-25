@@ -21,6 +21,7 @@ npm i @nebulr-group/nblocks-ionic
 ```
 
 ## Quick start
+Try this on a fresh Ionic project (`ionic start nblocks-ionic-test blank --type=angular`) or in your own project.
 
 1. From your project root, run
 
