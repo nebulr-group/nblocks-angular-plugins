@@ -1,5 +1,6 @@
 <ion-row>
   <ion-col class="main-column">
+    <p-dropdown [options]="cities" [(ngModel)]="selectedCity" optionLabel="name"></p-dropdown>
     <h4>
       {{ 'TENANT' | translate }}
     </h4>

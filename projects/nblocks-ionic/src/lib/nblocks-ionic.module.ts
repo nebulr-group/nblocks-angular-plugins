@@ -10,6 +10,8 @@ import {HttpLink} from 'apollo-angular/http';
 import {InMemoryCache} from '@apollo/client/core';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 export function createTranslateLoader(http: HttpClient):TranslateHttpLoader  {
   console.log("TranslateHttpLoader");
@@ -20,6 +22,8 @@ export function createTranslateLoader(http: HttpClient):TranslateHttpLoader  {
   declarations: [
   ],
   imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
     HttpClientModule,
     NBlocksRoutingModule,
     SharedComponentsModule,

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Tenant } from '../../../generated/graphql';
 import { TenantService } from '../../tenant.service';
+import { PrimeNGConfig } from 'primeng/api';
 
 @Component({
   selector: 'nblocks-edit-tenant',
@@ -13,12 +14,26 @@ export class EditTenantComponent implements OnInit {
 
   mutableTenant?:Tenant;
   tenant$!: Observable<Tenant>;
+
+  cities: City[];
+
+  selectedCity?: City;
   
   constructor(
     private readonly tenantService: TenantService,
-  ) { }
+    private readonly primengConfig: PrimeNGConfig
+  ) {
+    this.cities = [
+      {name: 'New York', code: 'NY'},
+      {name: 'Rome', code: 'RM'},
+      {name: 'London', code: 'LDN'},
+      {name: 'Istanbul', code: 'IST'},
+      {name: 'Paris', code: 'PRS'}
+  ];
+  }
 
   ngOnInit(): void {
+    
     this.tenant$ = this.getTenant();
 
     this.tenant$.subscribe(t => {
@@ -36,3 +51,9 @@ export class EditTenantComponent implements OnInit {
   }
 
 }
+
+interface City {
+  name: string,
+  code: string
+}
+

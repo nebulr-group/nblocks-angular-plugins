@@ -1,6 +1,6 @@
 {
-  "name": "@nebulr-group/nblocks-ionic",
-  "version": "1.0.0",
+  "name": "@nebulrgroup/nblocks-ionic",
+  "version": "1.0.0-primeng2",
   "description": "Nebulr nblocks plug-n-play plugin for Ionic",
   "author": "Oscar Söderlund",
   "private": false,
@@ -14,12 +14,19 @@
     "graphql": "^15.0.0",
     "lodash": "^4.17.21",
     "@ngx-translate/core": "^13.0.0",
-    "@ngx-translate/http-loader": "^6.0.0"
+    "@ngx-translate/http-loader": "^6.0.0",
+    "@angular/animations": "^12.2.14",
+    "@angular/cdk": "^12.2.13",
+    "primeicons": "^5.0.0",
+    "primeng": "^12.2.3"
   },
   "dependencies": {
     "tslib": "^2.3.0"
   },
   "devDependencies": {
+    "@angular/animations": "^12.2.14",
+    "@angular/cdk": "^12.2.13",
+    "@apollo/client": "^3.4.17",
     "@capacitor/core": "^3.3.2",
     "@capacitor/storage": "^1.2.3",
     "@graphql-codegen/cli": "2.3.0",
@@ -27,13 +34,14 @@
     "@graphql-codegen/typescript-apollo-angular": "3.3.1",
     "@graphql-codegen/typescript-operations": "2.2.1",
     "@ionic/angular": "^5.8.5",
-    "@apollo/client": "^3.4.17",
+    "@ngx-translate/core": "^13.0.0",
+    "@ngx-translate/http-loader": "^6.0.0",
+    "@types/lodash": "^4.14.176",
     "apollo-angular": "^2.6.0",
     "graphql": "^15.0.0",
     "lodash": "^4.17.21",
-    "@ngx-translate/core": "^13.0.0",
-    "@ngx-translate/http-loader": "^6.0.0",
-    "@types/lodash": "^4.14.176"
+    "primeicons": "^5.0.0",
+    "primeng": "^12.2.3"
   },
   "scripts": {
     "graphql-codegen": "graphql-codegen --config codegen.yml"
