@@ -34,7 +34,7 @@ to get the initial config structure and peer dependencies in place. More on that
 2. Import the `NblocksIonicModule` in your root App module or what you call the top most module for your project. Also register the interceptors under provider.
 
 ```javascript
-import { NblocksIonicModule, AUTH_HTTP_INTERCEPTOR_PROVIDERS } from 'nblocks-ionic';
+import { NblocksIonicModule, AUTH_HTTP_INTERCEPTOR_PROVIDERS } from '@nebulr-group/nblocks-ionic';
 
 @NgModule({
     declarations: [AppComponent],
