@@ -12,7 +12,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { TenantModule } from './tenant/tenant.module';
+import { PrimengModule } from './shared/modules/primeng.module';
 
 export function createTranslateLoader(http: HttpClient):TranslateHttpLoader  {
   console.log("TranslateHttpLoader");
@@ -28,7 +28,7 @@ export function createTranslateLoader(http: HttpClient):TranslateHttpLoader  {
     HttpClientModule,
     NBlocksRoutingModule,
     SharedComponentsModule,
-    TenantModule,
+    PrimengModule,
     TranslateModule.forRoot({
       defaultLanguage: 'en',
       loader: {

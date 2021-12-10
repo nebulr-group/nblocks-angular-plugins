@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TenantRoutingModule } from './tenant-routing.module';
-import { TenantPageModule } from './pages/tenant/tenant-page.module';
 
 
 
@@ -10,8 +9,7 @@ import { TenantPageModule } from './pages/tenant/tenant-page.module';
   exports: [],
   imports: [
     CommonModule,
-    TenantRoutingModule,
-    TenantPageModule
+    TenantRoutingModule
   ]
 })
 export class TenantModule { }
