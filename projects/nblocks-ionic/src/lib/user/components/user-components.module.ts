@@ -5,8 +5,10 @@ import { IonicModule } from '@ionic/angular';
 import { TranslateModule } from '@ngx-translate/core';
 import { SharedDirectivesModule } from '../../shared/directives/shared-directives.module';
 import { SharedPipesModule } from '../../shared/pipes/shared-pipes.module';
-
-
+import { TableModule } from 'primeng/table';
+import { DropdownModule } from 'primeng/dropdown';
+import {InputSwitchModule} from 'primeng/inputswitch';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -18,6 +20,10 @@ import { SharedPipesModule } from '../../shared/pipes/shared-pipes.module';
   imports: [
     CommonModule,
     IonicModule,
+    FormsModule,
+    TableModule,
+    InputSwitchModule,
+    DropdownModule,
     TranslateModule,
     SharedDirectivesModule,
     SharedPipesModule

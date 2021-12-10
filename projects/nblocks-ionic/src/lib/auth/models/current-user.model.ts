@@ -10,6 +10,8 @@ export class CurrentUser {
     constructor(authenticated:boolean, user?:AuthTenantUserResponseDto) {
         this.user = user;
         this.authenticated = authenticated;
+        if (authenticated)
+            console.log("User is authenticated");
     }
 
     getRole():string {
