@@ -123,6 +123,13 @@ export type UpdateTenantMutationVariables = Exact<{
 
 export type UpdateTenantMutation = { __typename?: 'Mutation', updateTenant: { __typename?: 'Tenant', id: string, name: string, locale?: string | null | undefined, logo: string, plan?: string | null | undefined, createdAt?: any | null | undefined } };
 
+export type CreateUsersMutationVariables = Exact<{
+  userNames: Array<Scalars['String']> | Scalars['String'];
+}>;
+
+
+export type CreateUsersMutation = { __typename?: 'Mutation', createUsers: Array<{ __typename?: 'User', id?: string | null | undefined, fullName?: string | null | undefined, email?: string | null | undefined, username?: string | null | undefined, createdAt?: any | null | undefined, onboarded?: boolean | null | undefined, enabled?: boolean | null | undefined, role?: string | null | undefined, teams?: Array<string> | null | undefined }> };
+
 export type ListUsersQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -176,6 +183,32 @@ export const UpdateTenantDocument = gql`
   })
   export class UpdateTenantGQL extends Apollo.Mutation<UpdateTenantMutation, UpdateTenantMutationVariables> {
     document = UpdateTenantDocument;
+    
+    constructor(apollo: Apollo.Apollo) {
+      super(apollo);
+    }
+  }
+export const CreateUsersDocument = gql`
+    mutation CreateUsers($userNames: [String!]!) {
+  createUsers(userNames: $userNames) {
+    id
+    fullName
+    email
+    username
+    createdAt
+    onboarded
+    enabled
+    role
+    teams
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class CreateUsersGQL extends Apollo.Mutation<CreateUsersMutation, CreateUsersMutationVariables> {
+    document = CreateUsersDocument;
     
     constructor(apollo: Apollo.Apollo) {
       super(apollo);

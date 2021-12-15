@@ -5,7 +5,7 @@ import { AuthService } from '../../auth.service';
 import { AuthTenantUserResponseDto } from '../../models/auth-tenant-user-response.dto';
 
 @Component({
-  selector: 'app-choose-user',
+  selector: 'nblocks-choose-user',
   templateUrl: './choose-user.page.html',
   styleUrls: ['./choose-user.page.scss'],
 })

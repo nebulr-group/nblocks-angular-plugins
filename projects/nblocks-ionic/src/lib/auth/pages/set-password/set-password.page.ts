@@ -12,7 +12,7 @@ import { ToastService } from '../../../shared/toast.service';
 import { AuthService } from '../../auth.service';
 
 @Component({
-  selector: 'app-set-password',
+  selector: 'nblocks-set-password',
   templateUrl: './set-password.page.html',
   styleUrls: ['./set-password.page.scss'],
 })

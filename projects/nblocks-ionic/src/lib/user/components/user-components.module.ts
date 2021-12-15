@@ -7,12 +7,17 @@ import { SharedDirectivesModule } from '../../shared/directives/shared-directive
 import { SharedPipesModule } from '../../shared/pipes/shared-pipes.module';
 import { TableModule } from 'primeng/table';
 import { DropdownModule } from 'primeng/dropdown';
-import {InputSwitchModule} from 'primeng/inputswitch';
+import { InputSwitchModule } from 'primeng/inputswitch';
+import { ChipsModule } from 'primeng/chips';
 import { FormsModule } from '@angular/forms';
+import { InviteUsersModalComponent } from './user-list/invite-users-modal/invite-users-modal.component';
+import { UserPopoverComponent } from './user-list/user-popover/user-popover.component';
 
 @NgModule({
   declarations: [
-    UserListComponent
+    UserListComponent,
+    InviteUsersModalComponent,
+    UserPopoverComponent
   ],
   exports: [
     UserListComponent
@@ -23,6 +28,7 @@ import { FormsModule } from '@angular/forms';
     FormsModule,
     TableModule,
     InputSwitchModule,
+    ChipsModule,
     DropdownModule,
     TranslateModule,
     SharedDirectivesModule,

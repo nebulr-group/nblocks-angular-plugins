@@ -1,59 +1,60 @@
 <ion-row>
   <ion-col>
-    <div>
-      <span class="h4" style="display: inline-block">
-        {{ 'USERS' | translate }}
-      </span>
-      <ion-button
+    <ion-row>
+      <div class="btn-container">
+        <ion-button
         (click)="showInviteUsersModal()"
-        class="ion-float-right add-button"
+        class="ion-float-right"
       >
         {{ 'INVITE_USERS' | translate }}
       </ion-button>
-    </div>
+      </div>
+    </ion-row>
 
-    <p-table [value]="mutableUsers">
-      <ng-template pTemplate="header">
-        <tr>
-          <th>{{ 'NAME' | translate }}</th>
-          <th>{{ 'ROLE_LABEL' | translate }}</th>
-          <th>{{ 'EMAIL' | translate }}</th>
-          <th>{{ 'CREATED' | translate }}</th>
-          <th>{{ 'ENABLED' | translate }}</th>
-        </tr>
-      </ng-template>
-      <ng-template pTemplate="body" let-user>
-        <tr [ngClass]="{ 'user-disabled-row': user.enabled == false }">
-          <td>
-            {{ user.fullName | safeFullName }}
-            <ion-badge *ngIf="isYou(user)" class="small-text" color="primary">{{"USER.YOU" | translate}}</ion-badge>
-            <ion-badge *ngIf="isExternal(user)" class="small-text" color="primary">{{"USER.EXTERNAL" | translate}}</ion-badge>
-          </td>
-          <td>
-            <p-dropdown [options]="roles" [(ngModel)]="user.role" [hidden]="isYou(user)" (onChange)="onRoleChange(user)"></p-dropdown>
-            <span *ngIf="isYou(user)">{{ 'ROLE.' + user.role | translate }}</span>
-          </td>
-          <td>{{ user.email }}</td>
-          <td>
-            {{ user.createdAt | date: ('DATETIME_FORMAT_MEDIUM' | translate) }}
-          </td>
-          <td>
-            <p-inputSwitch 
-            class="table-action-buttons"
-            *ngIf="!isYou(user)"
-            (onChange)="toggleEnabled(user)" 
-            [(ngModel)]="user.enabled">
-            </p-inputSwitch>
-            <ion-icon
-              size="large"
+    <ion-row>
+      <p-table [value]="mutableUsers" class="user-table">
+        <ng-template pTemplate="header">
+          <tr>
+            <th>{{ 'NAME' | translate }}</th>
+            <th>{{ 'ROLE_LABEL' | translate }}</th>
+            <th>{{ 'EMAIL' | translate }}</th>
+            <th>{{ 'CREATED' | translate }}</th>
+            <th>{{ 'ENABLED' | translate }}</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-user>
+          <tr [ngClass]="{ 'user-disabled-row': user.enabled == false }">
+            <td>
+              {{ user.fullName | safeFullName }}
+              <ion-badge *ngIf="isYou(user)" class="small-text" color="primary">{{"USER.YOU" | translate}}</ion-badge>
+              <ion-badge *ngIf="isExternal(user)" class="small-text" color="primary">{{"USER.EXTERNAL" | translate}}</ion-badge>
+            </td>
+            <td>
+              <p-dropdown [options]="roles" [(ngModel)]="user.role" [hidden]="isYou(user)" (onChange)="onRoleChange(user)"></p-dropdown>
+              <span *ngIf="isYou(user)">{{ 'ROLE.' + user.role | translate }}</span>
+            </td>
+            <td>{{ user.email }}</td>
+            <td>
+              {{ user.createdAt | date: ('DATETIME_FORMAT_MEDIUM' | translate) }}
+            </td>
+            <td>
+              <p-inputSwitch 
+              class="table-action-buttons"
               *ngIf="!isYou(user)"
-              name="ellipsis-horizontal-circle-sharp"
-              class="user-popover-menu table-action-buttons ion-float-right"
-              (click)="presentPopover($event, user)"
-            ></ion-icon>
-          </td>
-        </tr>
-      </ng-template>
-    </p-table>
+              (onChange)="toggleEnabled(user)" 
+              [(ngModel)]="user.enabled">
+              </p-inputSwitch>
+              <ion-icon
+                size="large"
+                *ngIf="!isYou(user)"
+                name="ellipsis-horizontal-circle-sharp"
+                class="user-popover-menu table-action-buttons ion-float-right"
+                (click)="presentUserPopover(user)"
+              ></ion-icon>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </ion-row>
   </ion-col>
 </ion-row>

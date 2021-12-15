@@ -1,13 +1,16 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { PrimeNGConfig, SelectItem } from 'primeng/api';
-import { combineLatest, Observable, Subscription } from 'rxjs';
+import { combineLatest, Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { AuthService } from '../../../auth/auth.service';
 import { CurrentUser } from '../../../auth/models/current-user.model';
 import { User } from '../../../generated/graphql';
 import { Utils } from '../../../shared/helpers/utils';
+import { PopoverService } from '../../../shared/popover.service';
 import { UserService } from '../../user.service';
+import { InviteUsersModalComponent } from './invite-users-modal/invite-users-modal.component';
+import { UserPopoverComponent } from './user-popover/user-popover.component';
 
 @Component({
   selector: 'nblocks-user-list',
@@ -27,7 +30,8 @@ export class UserListComponent implements OnInit, OnDestroy {
     private readonly userService: UserService,
     private readonly authService: AuthService,
     private readonly translateService: TranslateService,
-    private primengConfig: PrimeNGConfig,
+    private readonly primengConfig: PrimeNGConfig,
+    private readonly popoverService: PopoverService
   ) {
   }
 
@@ -63,12 +67,28 @@ export class UserListComponent implements OnInit, OnDestroy {
     return this.authenticatedUser.isSameUser(user);
   }
 
-  showInviteUsersModal(): void {
-
+  async showInviteUsersModal(): Promise<void> {
+    const result = await this.popoverService.presentModal('medium', InviteUsersModalComponent);
+    if (result.data) {
+      if (result.data.action == InviteUsersModalComponent.SUBMIT_ACTION) {
+        this._inviteUsers(result.data.emails);
+      }
+    }
   }
 
-  presentPopover(arg1:any, arg2:any): void {
+  async presentUserPopover(user:User): Promise<void> {
+    const result = await this.popoverService.presentModal('small', UserPopoverComponent, {user});
+    if (result.data) {
+      switch(result.data.action) {
+        case UserPopoverComponent.RESET_PASSWORD_ACTION:
+          await this._presentResetPasswordModal(user);
+          break;
 
+        case UserPopoverComponent.DELETE_USER_ACTION:
+          await this._presentDeleteUserModal(user);
+          break;
+      }
+    }
   }
 
   toggleEnabled(user:User): void {
@@ -77,5 +97,19 @@ export class UserListComponent implements OnInit, OnDestroy {
 
   onRoleChange(user:User): void {
     this.userService.updateUser(user);
+  }
+
+  private async _presentResetPasswordModal(user:User): Promise<void> {
+    const result = await this.popoverService.presentVerifyModal("VERIFY_MODAL.RESET_PASSWORD.TITLE", "VERIFY_MODAL.RESET_PASSWORD.BODY", {user});
+    console.log(result);
+  }
+
+  private async _presentDeleteUserModal(user:User): Promise<void> {
+    const result = await this.popoverService.presentVerifyModal("VERIFY_MODAL.DELETE_USER.TITLE", "VERIFY_MODAL.DELETE_USER.BODY", {user});
+    console.log(result);
+  }
+
+  private _inviteUsers(emails: string[]): void {
+    this.userService.inviteUsers(emails);
   }
 }

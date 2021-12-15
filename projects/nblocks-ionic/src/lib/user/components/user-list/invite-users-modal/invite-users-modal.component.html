@@ -1,0 +1,17 @@
+<h2>
+  {{'INVITE_USERS'|translate}}
+</h2>
+<p>
+  {{'INVITE_USERS_PLACEHOLDER'|translate}}
+</p>
+<div class="email-chips p-fluid">
+  <p-chips placeholder="{{'EMAIL_ADDRESS' | translate}}" [(ngModel)]="emails" [addOnBlur]="true"></p-chips>
+</div>
+<div class="ion-float-right">
+  <ion-button fill="outline" color="dark" (click)="cancel()">
+    {{'CANCEL'|translate}}
+  </ion-button>
+  <ion-button (click)="submit()">
+    {{'INVITE'|translate}}
+  </ion-button>
+</div>

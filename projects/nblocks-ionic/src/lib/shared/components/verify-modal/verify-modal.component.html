@@ -1,0 +1,19 @@
+<div class="popover">
+  
+</div>
+
+<div class="subtitle-1">
+  {{titleKey | translate}}
+</div>
+<p>
+  {{questionKey | translate}}
+</p>
+
+<div class="ion-float-right">
+  <ion-button fill="outline" color="dark" (click)="cancel()">
+    {{'CANCEL'|translate}}
+  </ion-button>
+  <ion-button (click)="submit()">
+    {{'VERIFY'|translate}}  
+  </ion-button>
+</div>
