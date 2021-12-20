@@ -31,3 +31,8 @@ export class InviteUsersModalComponent {
     });
   }
 }
+
+export class InviteUsersModalComponentResult {
+  action!: string;
+  emails!: string[];
+}

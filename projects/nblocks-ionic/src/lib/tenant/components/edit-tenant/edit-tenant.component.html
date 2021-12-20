@@ -1,6 +1,5 @@
 <ion-row>
   <ion-col>
-    <p-dropdown [options]="cities" [(ngModel)]="selectedCity" optionLabel="name"></p-dropdown>
     <h4>
       {{ 'TENANT' | translate }}
     </h4>
@@ -20,8 +19,7 @@
       </div>
 
       <div class="setting-value">
-        {{ (tenant$ | async)?.locale }}
-        <!-- <p-dropdown [options]="languages" [(ngModel)]="mutableTenant.locale" (onChange)="updateTenant()"></p-dropdown> -->
+        <p-dropdown [options]="languages" [(ngModel)]="mutableTenant.locale" (onChange)="updateTenant()"></p-dropdown>
       </div>
     </div>
 

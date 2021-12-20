@@ -17,7 +17,7 @@ export class TenantService {
     return this.getTenantGQL.watch({}).valueChanges.pipe(map((results) => results.data.getTenant));
   }
 
-  updateTenant(name: string, locale: string):Observable<Tenant> {
-      return this.updateTenantGQL.mutate({name, locale}).pipe(map((results) => (results.data as {updateTenant: Tenant}).updateTenant));
+  updateTenant(name: string, locale: string):void {
+    this.updateTenantGQL.mutate({name, locale}).subscribe();
   }
 }

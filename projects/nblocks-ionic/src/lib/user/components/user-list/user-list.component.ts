@@ -7,10 +7,11 @@ import { AuthService } from '../../../auth/auth.service';
 import { CurrentUser } from '../../../auth/models/current-user.model';
 import { User } from '../../../generated/graphql';
 import { Utils } from '../../../shared/helpers/utils';
+import { NblocksTranslationService } from '../../../shared/nblocks-translation.service';
 import { PopoverService } from '../../../shared/popover.service';
 import { UserService } from '../../user.service';
-import { InviteUsersModalComponent } from './invite-users-modal/invite-users-modal.component';
-import { UserPopoverComponent } from './user-popover/user-popover.component';
+import { InviteUsersModalComponent, InviteUsersModalComponentResult } from './invite-users-modal/invite-users-modal.component';
+import { UserPopoverComponent, UserPopoverComponentResult } from './user-popover/user-popover.component';
 
 @Component({
   selector: 'nblocks-user-list',
@@ -20,7 +21,7 @@ import { UserPopoverComponent } from './user-popover/user-popover.component';
 export class UserListComponent implements OnInit, OnDestroy {
 
   mutableUsers: User[] = [];
-  roles: SelectItem[] = [];
+  roles: SelectItem<string>[] = [];
 
   private subscriptions: Subscription = new Subscription();
   private authenticatedUser!: CurrentUser;
@@ -30,6 +31,7 @@ export class UserListComponent implements OnInit, OnDestroy {
     private readonly userService: UserService,
     private readonly authService: AuthService,
     private readonly translateService: TranslateService,
+    private readonly nblocksTranslationService: NblocksTranslationService,
     private readonly primengConfig: PrimeNGConfig,
     private readonly popoverService: PopoverService
   ) {
@@ -47,12 +49,9 @@ export class UserListComponent implements OnInit, OnDestroy {
       })
     );
 
-    //TODO this happens to fast, before translations has been loaded
-    this.translateService.get('dummyTranslation').toPromise().then(() => {
-      this.enabledRoles.forEach(name => {
-        this.roles.push({value: name, label: this.translateService.instant(`ROLE.${name}`)});
-      });
-    })
+    this.nblocksTranslationService.languageChanged.subscribe((lang) => {
+      this._reRenderRolePicker();
+    });
   }
 
   ngOnDestroy(): void {
@@ -70,8 +69,9 @@ export class UserListComponent implements OnInit, OnDestroy {
   async showInviteUsersModal(): Promise<void> {
     const result = await this.popoverService.presentModal('medium', InviteUsersModalComponent);
     if (result.data) {
-      if (result.data.action == InviteUsersModalComponent.SUBMIT_ACTION) {
-        this._inviteUsers(result.data.emails);
+      const data: InviteUsersModalComponentResult = result.data;
+      if (data.action == InviteUsersModalComponent.SUBMIT_ACTION) {
+        this._inviteUsers(data.emails);
       }
     }
   }
@@ -79,7 +79,8 @@ export class UserListComponent implements OnInit, OnDestroy {
   async presentUserPopover(user:User): Promise<void> {
     const result = await this.popoverService.presentModal('small', UserPopoverComponent, {user});
     if (result.data) {
-      switch(result.data.action) {
+      const data: UserPopoverComponentResult = result.data;
+      switch(data.action) {
         case UserPopoverComponent.RESET_PASSWORD_ACTION:
           await this._presentResetPasswordModal(user);
           break;
@@ -100,16 +101,41 @@ export class UserListComponent implements OnInit, OnDestroy {
   }
 
   private async _presentResetPasswordModal(user:User): Promise<void> {
-    const result = await this.popoverService.presentVerifyModal("VERIFY_MODAL.RESET_PASSWORD.TITLE", "VERIFY_MODAL.RESET_PASSWORD.BODY", {user});
-    console.log(result);
+    const result = await this.popoverService.presentVerifyModal(
+      "VERIFY_MODAL.RESET_PASSWORD.TITLE", 
+      "VERIFY_MODAL.RESET_PASSWORD.BODY", 
+      {user}
+      );
+    this._resetPassword(user);
   }
 
   private async _presentDeleteUserModal(user:User): Promise<void> {
-    const result = await this.popoverService.presentVerifyModal("VERIFY_MODAL.DELETE_USER.TITLE", "VERIFY_MODAL.DELETE_USER.BODY", {user});
-    console.log(result);
+    const result = await this.popoverService.presentVerifyModal(
+      "VERIFY_MODAL.DELETE_USER.TITLE", 
+      "VERIFY_MODAL.DELETE_USER.BODY", 
+      {user}
+      );
+      if (result.data)
+    this._deleteUser(user);
   }
 
   private _inviteUsers(emails: string[]): void {
     this.userService.inviteUsers(emails);
+  }
+
+  private _resetPassword(user:User): void {
+    this.userService.resetPassword(user);
+  }
+
+  private _deleteUser(user:User): void {
+    this.userService.deleteUser(user);
+  }
+
+  private _reRenderRolePicker(): void {
+    const roles: SelectItem<string>[] = [];
+    this.enabledRoles.forEach(name => {
+      roles.push({value: name, label: this.translateService.instant(`ROLE.${name}`)});
+    });
+    this.roles = roles;
   }
 }

@@ -24,3 +24,8 @@ export class VerifyModalComponent {
     this.popoverController.dismiss({ "action": VerifyModalComponent.SUBMIT_ACTION, "data": this.props });
   }
 }
+
+export class VerifyModalComponentResult {
+  action!: string;
+  data!: Record<string, unknown>;
+}

@@ -130,10 +130,24 @@ export type CreateUsersMutationVariables = Exact<{
 
 export type CreateUsersMutation = { __typename?: 'Mutation', createUsers: Array<{ __typename?: 'User', id?: string | null | undefined, fullName?: string | null | undefined, email?: string | null | undefined, username?: string | null | undefined, createdAt?: any | null | undefined, onboarded?: boolean | null | undefined, enabled?: boolean | null | undefined, role?: string | null | undefined, teams?: Array<string> | null | undefined }> };
 
+export type DeleteUserMutationVariables = Exact<{
+  userId: Scalars['String'];
+}>;
+
+
+export type DeleteUserMutation = { __typename?: 'Mutation', deleteUser: boolean };
+
 export type ListUsersQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type ListUsersQuery = { __typename?: 'Query', listUsers: Array<{ __typename?: 'User', id?: string | null | undefined, fullName?: string | null | undefined, email?: string | null | undefined, username?: string | null | undefined, createdAt?: any | null | undefined, onboarded?: boolean | null | undefined, enabled?: boolean | null | undefined, role?: string | null | undefined, teams?: Array<string> | null | undefined }> };
+
+export type SendPasswordResetLinkMutationVariables = Exact<{
+  userId: Scalars['String'];
+}>;
+
+
+export type SendPasswordResetLinkMutation = { __typename?: 'Mutation', sendPasswordResetLink: boolean };
 
 export type UpdateUserMutationVariables = Exact<{
   user: UserInput;
@@ -214,6 +228,22 @@ export const CreateUsersDocument = gql`
       super(apollo);
     }
   }
+export const DeleteUserDocument = gql`
+    mutation DeleteUser($userId: String!) {
+  deleteUser(userId: $userId)
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class DeleteUserGQL extends Apollo.Mutation<DeleteUserMutation, DeleteUserMutationVariables> {
+    document = DeleteUserDocument;
+    
+    constructor(apollo: Apollo.Apollo) {
+      super(apollo);
+    }
+  }
 export const ListUsersDocument = gql`
     query ListUsers {
   listUsers {
@@ -235,6 +265,22 @@ export const ListUsersDocument = gql`
   })
   export class ListUsersGQL extends Apollo.Query<ListUsersQuery, ListUsersQueryVariables> {
     document = ListUsersDocument;
+    
+    constructor(apollo: Apollo.Apollo) {
+      super(apollo);
+    }
+  }
+export const SendPasswordResetLinkDocument = gql`
+    mutation SendPasswordResetLink($userId: String!) {
+  sendPasswordResetLink(userId: $userId)
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class SendPasswordResetLinkGQL extends Apollo.Mutation<SendPasswordResetLinkMutation, SendPasswordResetLinkMutationVariables> {
+    document = SendPasswordResetLinkDocument;
     
     constructor(apollo: Apollo.Apollo) {
       super(apollo);

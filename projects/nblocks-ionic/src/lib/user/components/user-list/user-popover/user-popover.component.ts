@@ -29,3 +29,8 @@ export class UserPopoverComponent{
     this.popoverController.dismiss({ "action": UserPopoverComponent.DELETE_USER_ACTION, "user": this.user });
   }
 }
+
+export class UserPopoverComponentResult {
+  action!: string;
+  user!: User;
+}
