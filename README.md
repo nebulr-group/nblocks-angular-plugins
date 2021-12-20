@@ -1,15 +1,17 @@
-# NBlocks for Angular
+# nBlocks for Ionic Framework
 
-Welcome to NBlocks, the platform toolbox from Nebulr made by developers for developers. If you're new to this concept, head over to our [site](https://nblocks.dev) and check out the capabilities.
+Welcome to NBlocks, the platform toolbox from Nebulr made by developers for developers.   
+This is a plug-n-play plugin for Ionic Angular.
 
-[nblocks.dev](https://nblocks.dev)
+Check out the documentation and quickstart here:   
+https://nebulr-group.github.io/nblocks-docs
 
 This project gathers all Angular flavoured libraries for NBlocks. Please head over to each sub project README to get started.
 
 ## NBlocks for Ionic Framework
 [Go to project](projects/nblocks-ionic)
 
-# For developers
+# For developers of this project
 Angular helps organise different libraries and each library is stored as a sub project and located in the `/projects` directory.
 
 ## Build the sources directly
