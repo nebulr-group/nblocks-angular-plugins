@@ -1,0 +1,32 @@
+.large-modal {
+    --min-width: 800px;
+}
+
+.medium-modal {
+    --min-width: 440px;
+}
+
+.small-modal {
+    --min-width: 300px;
+}
+
+.verify-modal {
+    --min-width: 440px;
+}
+
+.popover-content {
+    padding: 20px;
+}
+
+.popover-item {
+    padding-bottom: 15px;
+    cursor: pointer;
+}
+
+.popover-item:hover {
+  background-color: var(--ion-color-light-shade);
+}
+
+.verify-modal{
+
+}
