@@ -4,7 +4,7 @@ import { NBlocksLibService } from './nblocks-lib.service';
 import { NBlocksRoutingModule } from './nblocks-routing.module';
 import { CurrentUserDebugComponent } from './shared/components/current-user-debug/current-user-debug.component';
 import { SharedComponentsModule } from './shared/components/shared-components.module';
-import { LibConfig, LibConfigService } from './shared/lib-config';
+import { defaultLibConfig, LibConfig, LibConfigService } from './shared/lib-config';
 import {APOLLO_OPTIONS} from 'apollo-angular';
 import {HttpLink} from 'apollo-angular/http';
 import {InMemoryCache} from '@apollo/client/core';
@@ -43,7 +43,7 @@ export function createTranslateLoader(http: HttpClient):TranslateHttpLoader  {
   ]
 })
 export class NblocksIonicModule {
-  static forRoot(config: LibConfig): ModuleWithProviders<NblocksIonicModule> {
+  static forRoot(config: Partial<LibConfig>): ModuleWithProviders<NblocksIonicModule> {
     console.log("forRoot called");
     return {
       ngModule: NblocksIonicModule,
@@ -56,10 +56,11 @@ export class NblocksIonicModule {
         {
           provide: APOLLO_OPTIONS,
           useFactory: (httpLink: HttpLink) => {
+            const defaultData = defaultLibConfig(config)
             return {
               cache: new InMemoryCache(),
               link: httpLink.create({
-                uri: `${config.apiHost}${config.graphqlPath}`
+                uri: `${defaultData.apiHost}${defaultData.graphqlPath}`
               }),
             };
           },
