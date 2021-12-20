@@ -32,6 +32,9 @@ A library can be tested locally without publishing.
 
 Some angular projects have a problem installing and using linked plugins and requires you add `preserveSymlinks: true` to angular.json. See [this](https://stackoverflow.com/questions/58260202/preserve-symlinks-in-angular-libraries) for more information.
 
+- To list all your linked plugins (globally) `npm ls -g --depth=0 --link=true`.   
+- To remove a linked plugin from node_modules `npm unlink name-of-lib`
+
 ## Add a new project
 To generate a new project, e.g.   
 `ng generate library nblocks-ionic --prefix=nblocks`
