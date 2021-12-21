@@ -6,15 +6,15 @@
         <div class="ion-text-center">
           <nblocks-logo></nblocks-logo>
           <h2>
-            {{'AUTH.SIGN_IN'|translate}}
+            {{'NBLOCKS.AUTH.SIGN_IN'|translate}}
           </h2>
-          <p class="ion-text-center">{{'AUTH.CHOOSE_USER_SUB'|translate}}</p>
+          <p class="ion-text-center">{{'NBLOCKS.AUTH.CHOOSE_USER_SUB'|translate}}</p>
         </div>
       </ion-col>
     </ion-row>
     <ion-row>
       <ion-col size="12" size-sm="4" push-sm="4">
-        <p class="body-2 wrong-credentials" [hidden]="!noEnabledUserError">{{'AUTH.NO_TENANT'|translate}}</p>
+        <p class="body-2 wrong-credentials" [hidden]="!noEnabledUserError">{{'NBLOCKS.AUTH.NO_TENANT'|translate}}</p>
         <ion-card>
           <ion-item button lines="none" (click)='markUser(user)'
             *ngFor="let user of tenantUsers; index as i; first as isFirst">
@@ -24,7 +24,7 @@
               </div>
             </ion-avatar>
             <ion-label>
-              {{user.tenant.name ? user.tenant.name : "AUTH.NEW_TENANT" | translate}} ({{normalizeRoleName(user.role)}})
+              {{user.tenant.name ? user.tenant.name : "NBLOCKS.AUTH.UNNAMED_TENANT" | translate}} ({{normalizeRoleName(user.role)}})
             </ion-label>
             <ion-icon *ngIf="user==selectedUser" name="checkmark-outline" slot="end"></ion-icon>
           </ion-item>
@@ -35,11 +35,11 @@
       <ion-col size="12" size-sm="4" push-sm="4">
         <ion-button [hidden]="noEnabledUserError" (click)='this.selectedUser && chooseUser(this.selectedUser)' class="small-text sign-in-button"
           [disabled]="this.selectedUser==null || loading" [color]="error ? 'danger' : ''" expand="block">
-          {{'AUTH.SIGN_IN_BUTTON'|translate}}
+          {{'NBLOCKS.AUTH.SIGN_IN_BUTTON'|translate}}
         </ion-button>
         <ion-button [hidden]="!noEnabledUserError" href='auth/logout' class="small-text sign-in-button"
            expand="block">
-          {{'AUTH.SIGN_OUT_BUTTON'|translate}}
+          {{'NBLOCKS.AUTH.SIGN_OUT_BUTTON'|translate}}
         </ion-button>
       </ion-col>
     </ion-row>

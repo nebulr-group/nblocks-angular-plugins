@@ -103,8 +103,8 @@ export class UserListComponent implements OnInit, OnDestroy {
 
   private async _presentResetPasswordModal(user:User): Promise<void> {
     const result = await this.popoverService.presentVerifyModal(
-      "VERIFY_MODAL.RESET_PASSWORD.TITLE", 
-      "VERIFY_MODAL.RESET_PASSWORD.BODY", 
+      "NBLOCKS.VERIFY_MODAL.RESET_PASSWORD.TITLE", 
+      "NBLOCKS.VERIFY_MODAL.RESET_PASSWORD.BODY", 
       {user}
       );
     this._resetPassword(user);
@@ -112,8 +112,8 @@ export class UserListComponent implements OnInit, OnDestroy {
 
   private async _presentDeleteUserModal(user:User): Promise<void> {
     const result = await this.popoverService.presentVerifyModal(
-      "VERIFY_MODAL.DELETE_USER.TITLE", 
-      "VERIFY_MODAL.DELETE_USER.BODY", 
+      "NBLOCKS.VERIFY_MODAL.DELETE_USER.TITLE", 
+      "NBLOCKS.VERIFY_MODAL.DELETE_USER.BODY", 
       {user}
       );
       if (result.data)
@@ -135,7 +135,7 @@ export class UserListComponent implements OnInit, OnDestroy {
   private _reRenderRolePicker(): void {
     const roles: SelectItem<string>[] = [];
     this.nBlocksLibService.config.roles.forEach(name => {
-      roles.push({value: name, label: this.translateService.instant(`ROLE.${name}`)});
+      roles.push({value: name, label: this.translateService.instant(`NBLOCKS.ROLE.${name}`)});
     });
     this.roles = roles;
   }

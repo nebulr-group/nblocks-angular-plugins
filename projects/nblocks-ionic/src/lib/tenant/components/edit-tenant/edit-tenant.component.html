@@ -1,11 +1,8 @@
 <ion-row>
   <ion-col>
-    <h4>
-      {{ 'TENANT' | translate }}
-    </h4>
     <div class="setting">
       <div class="subtitle-2">
-        {{ 'COMPANY_NAME' | translate }}
+        {{ 'NBLOCKS.TENANT_NAME' | translate }}
       </div>
 
       <div class="setting-value">
@@ -15,7 +12,7 @@
 
     <div class="setting" [nblocksAccessControl]='EDIT_ROLES'>
       <div class="subtitle-2">
-        {{ 'LANGUAGE' | translate }}
+        {{ 'NBLOCKS.LANGUAGE' | translate }}
       </div>
 
       <div class="setting-value">
@@ -25,11 +22,11 @@
 
     <div class="setting">
       <div class="subtitle-2">
-        {{ 'DATE_CREATED' | translate }}
+        {{ 'NBLOCKS.DATE_CREATED' | translate }}
       </div>
 
       <div class="setting-value">
-        {{ (tenant$ | async)?.createdAt | date: ('DATETIME_FORMAT_MEDIUM' | translate) }}
+        {{ (tenant$ | async)?.createdAt | date: ('NBLOCKS.DATETIME_FORMAT_MEDIUM' | translate) }}
       </div>
     </div>
   </ion-col>

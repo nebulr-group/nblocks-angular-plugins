@@ -5,9 +5,9 @@
       <ion-col class="ion-align-self-center">
         <div class="ion-text-center">
           <h2>
-            {{'AUTH.COMPLETE_PROFILE'|translate}}
+            {{'NBLOCKS.AUTH.COMPLETE_PROFILE'|translate}}
           </h2>
-          <p class="ion-text-center">{{'AUTH.COMPLETE_PROFILE_DESCRIPTION'|translate}}</p>
+          <p class="ion-text-center">{{'NBLOCKS.AUTH.COMPLETE_PROFILE_DESCRIPTION'|translate}}</p>
         </div>
       </ion-col>
     </ion-row>
@@ -16,24 +16,24 @@
         <form #form="ngForm" (ngSubmit)="save(form)" (keyup)="handleKeyUp($event, form)">
 
           <ion-item lines="full">
-            <ion-label position="floating">{{'AUTH.FIRSTNAME'|translate}}*</ion-label>
+            <ion-label position="floating">{{'NBLOCKS.AUTH.FIRSTNAME'|translate}}*</ion-label>
             <ion-input name="firstName" type="text" ngModel required></ion-input>
           </ion-item>
 
           <ion-item lines="full">
-            <ion-label position="floating">{{'AUTH.LASTNAME'|translate}}*</ion-label>
+            <ion-label position="floating">{{'NBLOCKS.AUTH.LASTNAME'|translate}}*</ion-label>
             <ion-input name="lastName" type="text" ngModel required></ion-input>
           </ion-item>
 
           <ion-item lines="full">
-            <ion-label position="floating">{{'AUTH.PHONENUMBER'|translate}}</ion-label>
+            <ion-label position="floating">{{'NBLOCKS.AUTH.PHONENUMBER'|translate}}</ion-label>
             <ion-input name="phoneNumber" type="text" ngModel></ion-input>
           </ion-item>
 
           <ion-row>
             <ion-col>
               <ion-button class="small-text sign-in-button" [disabled]="form.invalid || loading" type="submit"
-                expand="block">{{'AUTH.SAVE'|translate}}</ion-button>
+                expand="block">{{'NBLOCKS.AUTH.SAVE'|translate}}</ion-button>
             </ion-col>
           </ion-row>
 

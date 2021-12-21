@@ -5,8 +5,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { NblocksTranslationService } from './nblocks-translation.service';
 
 export function createTranslateLoader(http: HttpClient):TranslateHttpLoader  {
-  console.log("TranslateHttpLoader");
-        return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+  return new TranslateHttpLoader(http, './assets/i18n/nblocks_', '.json');
 }
 
 export function onAppInit(nblocksTranslationService: NblocksTranslationService)  {

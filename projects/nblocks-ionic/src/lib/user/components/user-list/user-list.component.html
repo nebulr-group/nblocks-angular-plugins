@@ -6,7 +6,7 @@
         (click)="showInviteUsersModal()"
         class="ion-float-right"
       >
-        {{ 'INVITE_USERS' | translate }}
+        {{ 'NBLOCKS.INVITE_USERS' | translate }}
       </ion-button>
       </div>
     </ion-row>
@@ -15,27 +15,27 @@
       <p-table [value]="mutableUsers" class="user-table">
         <ng-template pTemplate="header">
           <tr>
-            <th>{{ 'NAME' | translate }}</th>
-            <th>{{ 'ROLE_LABEL' | translate }}</th>
-            <th>{{ 'EMAIL' | translate }}</th>
-            <th>{{ 'CREATED' | translate }}</th>
-            <th>{{ 'ENABLED' | translate }}</th>
+            <th>{{ 'NBLOCKS.USER.NAME' | translate }}</th>
+            <th>{{ 'NBLOCKS.ROLE_LABEL' | translate }}</th>
+            <th>{{ 'NBLOCKS.EMAIL_SHORT' | translate }}</th>
+            <th>{{ 'NBLOCKS.DATE_CREATED' | translate }}</th>
+            <th>{{ 'NBLOCKS.ENABLED' | translate }}</th>
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-user>
           <tr [ngClass]="{ 'user-disabled-row': user.enabled == false }">
             <td>
               {{ user.fullName | safeFullName }}
-              <ion-badge *ngIf="isYou(user)" class="small-text" color="primary">{{"USER.YOU" | translate}}</ion-badge>
-              <ion-badge *ngIf="isExternal(user)" class="small-text" color="primary">{{"USER.EXTERNAL" | translate}}</ion-badge>
+              <ion-badge *ngIf="isYou(user)" class="small-text" color="primary">{{"NBLOCKS.USER.YOU" | translate}}</ion-badge>
+              <ion-badge *ngIf="isExternal(user)" class="small-text" color="primary">{{"NBLOCKS.USER.EXTERNAL" | translate}}</ion-badge>
             </td>
             <td>
               <p-dropdown [options]="roles" [(ngModel)]="user.role" [hidden]="isYou(user)" (onChange)="onRoleChange(user)"></p-dropdown>
-              <span *ngIf="isYou(user)">{{ 'ROLE.' + user.role | translate }}</span>
+              <span *ngIf="isYou(user)">{{ 'NBLOCKS.ROLE.' + user.role | translate }}</span>
             </td>
             <td>{{ user.email }}</td>
             <td>
-              {{ user.createdAt | date: ('DATETIME_FORMAT_MEDIUM' | translate) }}
+              {{ user.createdAt | date: ('NBLOCKS.DATETIME_FORMAT_MEDIUM' | translate) }}
             </td>
             <td>
               <p-inputSwitch 

@@ -6,6 +6,7 @@ import { BehaviorSubject, combineLatest } from 'rxjs'
 import { filter, tap } from 'rxjs/operators';
 import { AuthService } from '../../../auth/auth.service';
 import { Tenant } from '../../../generated/graphql';
+import { NBlocksLibService } from '../../../nblocks-lib.service';
 import { TenantService } from '../../../tenant/tenant.service';
 
 /**
@@ -26,14 +27,14 @@ export class NblocksTranslationService {
   /* Language was initially set, or just changed. Safe to assume translation has been downloaded and keys resolved by now */
   languageChanged: BehaviorSubject<string>;
 
-  private readonly _ENABLED_LANGUAGES = ['en', 'sv'];
   private _loadedLanguages: Record<string, Record<string, unknown>> = {};
 
   constructor(
     private readonly httpClient: HttpClient,
     private readonly translateService: TranslateService,
     private readonly authService: AuthService,
-    private readonly tenantService: TenantService
+    private readonly tenantService: TenantService,
+    private readonly nBlocksLibService: NBlocksLibService
     ) {
 
       console.log("NblocksTranslationService");
@@ -45,7 +46,7 @@ export class NblocksTranslationService {
     // Download all enabled languages as JSONS via HTTP. If we had race condition with getTenantGQL, we will retry to setLanguage() again after download
 
     const authenticatedUser$ = this.authService.currentUser$.pipe(filter((u) => u.authenticated));
-    const langDownloads$ = this._ENABLED_LANGUAGES.map(lang => this.httpClient.get<Record<string, unknown>>(`./assets/i18n/${lang}.json`).pipe(tap((r) => r['LANG_ID'] = lang)));
+    const langDownloads$ = this.nBlocksLibService.config.languages.map(lang => this.httpClient.get<Record<string, unknown>>(`./assets/i18n/nblocks_${lang}.json`).pipe(tap((r) => r['LANG_ID'] = lang)));
 
     // Make sure user is authenticated before trying to pull tenant
     //TODO with this approach we're not downloading SV until someone is authenticated!
@@ -89,11 +90,11 @@ export class NblocksTranslationService {
    * @returns 
    */
   private _constructSelectableLanguages(): SelectItem<string>[] {
-    return this._ENABLED_LANGUAGES.map(lang => {return {value: lang, label: this.translateService.instant(`LANGUAGES.${lang.toUpperCase()}`)}});
+    return this.nBlocksLibService.config.languages.map(lang => {return {value: lang, label: this.translateService.instant(`NBLOCKS.LANGUAGES.${lang.toUpperCase()}`)}});
   }
 
   private _getTranslations(language: string): Record<string, unknown> {
-    if (this._ENABLED_LANGUAGES.includes(language) && !{}.hasOwnProperty.call(this._loadedLanguages, language))
+    if (this.nBlocksLibService.config.languages.includes(language) && !{}.hasOwnProperty.call(this._loadedLanguages, language))
       throw new LanguageNotYetLoadedError(`${language} not loaded yet`);
 
     return this._loadedLanguages[language];
