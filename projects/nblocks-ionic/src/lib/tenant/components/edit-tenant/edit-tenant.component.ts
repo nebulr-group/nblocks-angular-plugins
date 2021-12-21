@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { Tenant } from '../../../generated/graphql';
 import { TenantService } from '../../tenant.service';
 import { PrimeNGConfig, SelectItem } from 'primeng/api';
-import { NblocksTranslationService } from '../../../shared/nblocks-translation.service';
+import { NblocksTranslationService } from '../../../shared/modules/translation/nblocks-translation.service';
 
 @Component({
   selector: 'nblocks-edit-tenant',

@@ -1,4 +1,4 @@
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { NBlocksLibService } from './nblocks-lib.service';
 import { NBlocksRoutingModule } from './nblocks-routing.module';
@@ -8,16 +8,12 @@ import { defaultLibConfig, LibConfig, LibConfigService } from './shared/lib-conf
 import {APOLLO_OPTIONS} from 'apollo-angular';
 import {HttpLink} from 'apollo-angular/http';
 import {InMemoryCache} from '@apollo/client/core';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PrimengModule } from './shared/modules/primeng.module';
+import { TranslationModule } from './shared/modules/translation/translation.module';
 
-export function createTranslateLoader(http: HttpClient):TranslateHttpLoader  {
-  console.log("TranslateHttpLoader");
-        return new TranslateHttpLoader(http, './assets/i18n/', '.json');
-}
+
 
 @NgModule({
   declarations: [
@@ -29,14 +25,7 @@ export function createTranslateLoader(http: HttpClient):TranslateHttpLoader  {
     NBlocksRoutingModule,
     SharedComponentsModule,
     PrimengModule,
-    TranslateModule.forRoot({
-      defaultLanguage: 'en',
-      loader: {
-        provide: TranslateLoader,
-        useFactory: (createTranslateLoader),
-        deps: [HttpClient],
-      },
-    }),
+    TranslationModule
   ],
   exports: [
     CurrentUserDebugComponent
@@ -44,19 +33,19 @@ export function createTranslateLoader(http: HttpClient):TranslateHttpLoader  {
 })
 export class NblocksIonicModule {
   static forRoot(config: Partial<LibConfig>): ModuleWithProviders<NblocksIonicModule> {
-    console.log("forRoot called");
+    const defaultData = defaultLibConfig(config);
     return {
       ngModule: NblocksIonicModule,
       providers: [
         NBlocksLibService,
         {
           provide: LibConfigService,
-          useValue: config
+          useValue: defaultData
         },
         {
           provide: APOLLO_OPTIONS,
           useFactory: (httpLink: HttpLink) => {
-            const defaultData = defaultLibConfig(config)
+            
             return {
               cache: new InMemoryCache(),
               link: httpLink.create({

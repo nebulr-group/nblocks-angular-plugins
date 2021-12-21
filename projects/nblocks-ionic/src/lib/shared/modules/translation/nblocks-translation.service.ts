@@ -4,9 +4,9 @@ import { TranslateService } from '@ngx-translate/core';
 import { SelectItem } from 'primeng/api';
 import { BehaviorSubject, combineLatest } from 'rxjs'
 import { filter, tap } from 'rxjs/operators';
-import { AuthService } from '../auth/auth.service';
-import { Tenant } from '../generated/graphql';
-import { TenantService } from '../tenant/tenant.service';
+import { AuthService } from '../../../auth/auth.service';
+import { Tenant } from '../../../generated/graphql';
+import { TenantService } from '../../../tenant/tenant.service';
 
 /**
  * The NebulrTranslationService helps UI to render different languages / translations. It wraps ngx-translate under the hood.
@@ -35,6 +35,8 @@ export class NblocksTranslationService {
     private readonly authService: AuthService,
     private readonly tenantService: TenantService
     ) {
+
+      console.log("NblocksTranslationService");
 
     // Register the default lang as the lang currently in use!
     this.languageChanged = new BehaviorSubject(this.translateService.currentLang);

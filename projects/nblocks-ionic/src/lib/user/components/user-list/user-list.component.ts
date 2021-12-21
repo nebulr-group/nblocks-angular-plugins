@@ -6,8 +6,9 @@ import { filter } from 'rxjs/operators';
 import { AuthService } from '../../../auth/auth.service';
 import { CurrentUser } from '../../../auth/models/current-user.model';
 import { User } from '../../../generated/graphql';
+import { NBlocksLibService } from '../../../nblocks-lib.service';
 import { Utils } from '../../../shared/helpers/utils';
-import { NblocksTranslationService } from '../../../shared/nblocks-translation.service';
+import { NblocksTranslationService } from '../../../shared/modules/translation/nblocks-translation.service';
 import { PopoverService } from '../../../shared/popover.service';
 import { UserService } from '../../user.service';
 import { InviteUsersModalComponent, InviteUsersModalComponentResult } from './invite-users-modal/invite-users-modal.component';
@@ -25,7 +26,6 @@ export class UserListComponent implements OnInit, OnDestroy {
 
   private subscriptions: Subscription = new Subscription();
   private authenticatedUser!: CurrentUser;
-  private enabledRoles = ["OWNER", "ADMIN", "MANAGER", "VIEWER"];
 
   constructor(
     private readonly userService: UserService,
@@ -33,7 +33,8 @@ export class UserListComponent implements OnInit, OnDestroy {
     private readonly translateService: TranslateService,
     private readonly nblocksTranslationService: NblocksTranslationService,
     private readonly primengConfig: PrimeNGConfig,
-    private readonly popoverService: PopoverService
+    private readonly popoverService: PopoverService,
+    private readonly nBlocksLibService: NBlocksLibService
   ) {
   }
 
@@ -133,7 +134,7 @@ export class UserListComponent implements OnInit, OnDestroy {
 
   private _reRenderRolePicker(): void {
     const roles: SelectItem<string>[] = [];
-    this.enabledRoles.forEach(name => {
+    this.nBlocksLibService.config.roles.forEach(name => {
       roles.push({value: name, label: this.translateService.instant(`ROLE.${name}`)});
     });
     this.roles = roles;
