@@ -1,0 +1,1 @@
+These language files are beeing downloaded from Github and applied to the host projects by npx scripts.
