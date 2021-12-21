@@ -4,7 +4,7 @@ import { NavController } from '@ionic/angular';
 import { AuthService } from '../../auth.service';
 
 @Component({
-  selector: 'app-onboarding',
+  selector: 'nblocks-onboarding',
   templateUrl: './onboarding.page.html',
   styleUrls: ['./onboarding.page.scss'],
 })

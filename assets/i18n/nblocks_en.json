@@ -1,0 +1,101 @@
+{
+	"NBLOCKS": {
+	  "ERROR_MESSAGE": {
+		"UNAUTHORIZED": "You need to login again",
+		"FORBIDDEN": "You don't have permissions for this action",
+		"MUST_BE_OWNER": "You need to be the workspace owner",
+		"GENERAL": "An error occurred. Try again or contact support.",
+		"INTERNAL_SERVER_ERROR": "An error occurred. Try again or contact support."
+	  },
+	  "TOAST_MESSAGE": {
+		"LOGIN_AGAIN": "You need to login again",
+		"LOGGED_OUT": "You were logged out",
+		"RESET_PASSWORD_SENT": "Check your email inbox",
+		"PASSWORD_RESETTED": "Password set! Login with your new credentials."
+	  },
+	  "AUTH": {
+		"SIGN_IN": "Sign in to MyApp",
+		"SIGN_IN_SUB": "Continue with the email address you used to sign up.",
+		"SET_NEW_PASSWORD": "Set a new password",
+		"SET_NEW_PASSWORD_SUB": "Set your new password which you will be using for any future logins.",
+		"ENTER_NEW_PASSWORD": "Enter a new password",
+		"ENTER_NEW_PASSWORD_REPEAT": "Repeat your new password",
+		"EMAIL_ADDRESS": "Email adress",
+		"PASSWORD": "Password",
+		"FORGOT_PASSWORD": "Forgot Password?",
+		"SIGN_IN_BUTTON": "Sign in",
+		"SIGN_OUT_BUTTON": "Sign out",
+		"SIGNING_OUT_LOADING": "Signing out...",
+		"WRONG_CREDENTIALS": "Wrong credentials, please try again.",
+		"NO_TENANT": "You don't belong to any workspace.",
+		"UNNAMED_TENANT": "New workspace",
+		"TRADEMARK": "@{{year}} MyApp AB All rights reserved ",
+		"PRIVACY_POLICY": "Privacy Policy",
+		"RESET_PASSWORD": "Reset Password",
+		"RESET_PASSWORD_SUB": "Please enter the email address used to sign in to your account.",
+		"SEND": "Get a Reset Link",
+		"COMPLETE_PROFILE": "Complete profile",
+		"COMPLETE_PROFILE_DESCRIPTION": "It's the first time we see you! Please fill in your info below to allow others in the team to recognise you.",
+		"FIRSTNAME": "First name",
+		"LASTNAME": "Last name",
+		"PHONENUMBER": "Phone number",
+		"SAVE": "Save",
+		"DONT_HAVE_AN_ACCOUNT": "Don't have an account?",
+		"SIGN_UP": "Sign up",
+		"CHOOSE_USER_SUB": "Continue with the workspace for the organisation you want to log in to",
+		"PASSWORD_STRENGTH_VALIDATION": {
+		  "passwordStrength_minLength": "Minimal length: 10 characters",
+		  "passwordStrength_noUppercaseLetter": "Should contain uppercase letter",
+		  "passwordStrength_noLowercaseLetter": "Should contain lowercase letter",
+		  "passwordStrength_noNumber": "Should contain digit",
+		  "passwordStrength_noSpecialCharacter": "Should contain special character"
+		}
+	  },
+	  "USER": {
+		"NAME": "Name",
+		"NO_NAME": "Invited User",
+		"YOU": "You",
+		"EXTERNAL": "External",
+		"DELETE":"Delete user",
+		"SEND_RESET_PASSWORD_LINK": "Send reset password link"
+	  },
+	  "ROLE": {
+		"OWNER": "Owner",
+		"ADMIN": "Admin",
+		"MANAGER": "Manager",
+		"VIEWER": "Viewer"
+	  },
+	  "TENANT": "Workspace",
+	  "TENANT_NAME":"Workspace name",
+	  "USERS": "Users",
+	  "INVITE": "Invite",
+	  "INVITE_USERS":"Invite users",
+	  "INVITE_USERS_PLACEHOLDER":"You can invite several users, just hit enter.",
+	  "ROLE_LABEL":"Role",
+	  "EMAIL_SHORT": "Email",
+	  "EMAIL_LONG": "Email address",
+	  "ENABLED": "Enabled",
+	  "CANCEL": "Cancel",
+	  "LANGUAGE": "Language",
+	  "LANGUAGES": {
+		"EN": "English",
+		"SV": "Swedish"
+	  },
+	  "DATE_CREATED": "Date created",
+	  "DATE_FORMAT_MEDIUM": "d MMM y",
+	  "DATETIME_FORMAT_MEDIUM": "d MMM y, HH:mm:ss",
+	  "VERIFY_MODAL": {
+		"RESET_PASSWORD": {
+		  "TITLE":"Reset password",
+		  "BODY":"Are you sure you want to reset the password? An email with instructions will be sent to the user."
+		},
+		"DELETE_USER": {
+		  "TITLE":"Delete user",
+		  "BODY":"Are you sure you want to delete the user? The user will be removed and will never be able to login again."
+		},
+		"CANCEL": "Cancel",
+		"VERIFY": "OK"
+	  }
+	}
+  }
+	

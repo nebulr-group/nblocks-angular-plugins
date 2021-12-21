@@ -123,10 +123,38 @@ export type UpdateTenantMutationVariables = Exact<{
 
 export type UpdateTenantMutation = { __typename?: 'Mutation', updateTenant: { __typename?: 'Tenant', id: string, name: string, locale?: string | null | undefined, logo: string, plan?: string | null | undefined, createdAt?: any | null | undefined } };
 
+export type CreateUsersMutationVariables = Exact<{
+  userNames: Array<Scalars['String']> | Scalars['String'];
+}>;
+
+
+export type CreateUsersMutation = { __typename?: 'Mutation', createUsers: Array<{ __typename?: 'User', id?: string | null | undefined, fullName?: string | null | undefined, email?: string | null | undefined, username?: string | null | undefined, createdAt?: any | null | undefined, onboarded?: boolean | null | undefined, enabled?: boolean | null | undefined, role?: string | null | undefined, teams?: Array<string> | null | undefined }> };
+
+export type DeleteUserMutationVariables = Exact<{
+  userId: Scalars['String'];
+}>;
+
+
+export type DeleteUserMutation = { __typename?: 'Mutation', deleteUser: boolean };
+
 export type ListUsersQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type ListUsersQuery = { __typename?: 'Query', listUsers: Array<{ __typename?: 'User', id?: string | null | undefined, fullName?: string | null | undefined, email?: string | null | undefined, username?: string | null | undefined, createdAt?: any | null | undefined, onboarded?: boolean | null | undefined, enabled?: boolean | null | undefined, role?: string | null | undefined, teams?: Array<string> | null | undefined }> };
+
+export type SendPasswordResetLinkMutationVariables = Exact<{
+  userId: Scalars['String'];
+}>;
+
+
+export type SendPasswordResetLinkMutation = { __typename?: 'Mutation', sendPasswordResetLink: boolean };
+
+export type UpdateUserMutationVariables = Exact<{
+  user: UserInput;
+}>;
+
+
+export type UpdateUserMutation = { __typename?: 'Mutation', updateUser: { __typename?: 'User', id?: string | null | undefined, fullName?: string | null | undefined, email?: string | null | undefined, username?: string | null | undefined, createdAt?: any | null | undefined, onboarded?: boolean | null | undefined, enabled?: boolean | null | undefined, role?: string | null | undefined, teams?: Array<string> | null | undefined } };
 
 export const GetTenantDocument = gql`
     query GetTenant {
@@ -174,6 +202,48 @@ export const UpdateTenantDocument = gql`
       super(apollo);
     }
   }
+export const CreateUsersDocument = gql`
+    mutation CreateUsers($userNames: [String!]!) {
+  createUsers(userNames: $userNames) {
+    id
+    fullName
+    email
+    username
+    createdAt
+    onboarded
+    enabled
+    role
+    teams
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class CreateUsersGQL extends Apollo.Mutation<CreateUsersMutation, CreateUsersMutationVariables> {
+    document = CreateUsersDocument;
+    
+    constructor(apollo: Apollo.Apollo) {
+      super(apollo);
+    }
+  }
+export const DeleteUserDocument = gql`
+    mutation DeleteUser($userId: String!) {
+  deleteUser(userId: $userId)
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class DeleteUserGQL extends Apollo.Mutation<DeleteUserMutation, DeleteUserMutationVariables> {
+    document = DeleteUserDocument;
+    
+    constructor(apollo: Apollo.Apollo) {
+      super(apollo);
+    }
+  }
 export const ListUsersDocument = gql`
     query ListUsers {
   listUsers {
@@ -195,6 +265,48 @@ export const ListUsersDocument = gql`
   })
   export class ListUsersGQL extends Apollo.Query<ListUsersQuery, ListUsersQueryVariables> {
     document = ListUsersDocument;
+    
+    constructor(apollo: Apollo.Apollo) {
+      super(apollo);
+    }
+  }
+export const SendPasswordResetLinkDocument = gql`
+    mutation SendPasswordResetLink($userId: String!) {
+  sendPasswordResetLink(userId: $userId)
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class SendPasswordResetLinkGQL extends Apollo.Mutation<SendPasswordResetLinkMutation, SendPasswordResetLinkMutationVariables> {
+    document = SendPasswordResetLinkDocument;
+    
+    constructor(apollo: Apollo.Apollo) {
+      super(apollo);
+    }
+  }
+export const UpdateUserDocument = gql`
+    mutation UpdateUser($user: UserInput!) {
+  updateUser(user: $user) {
+    id
+    fullName
+    email
+    username
+    createdAt
+    onboarded
+    enabled
+    role
+    teams
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class UpdateUserGQL extends Apollo.Mutation<UpdateUserMutation, UpdateUserMutationVariables> {
+    document = UpdateUserDocument;
     
     constructor(apollo: Apollo.Apollo) {
       super(apollo);

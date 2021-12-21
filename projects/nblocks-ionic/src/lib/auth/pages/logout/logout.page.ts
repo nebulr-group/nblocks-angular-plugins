@@ -4,7 +4,7 @@ import { ToastService } from '../../../shared/toast.service';
 import { AuthService } from '../../auth.service';
 
 @Component({
-  selector: 'app-logout',
+  selector: 'nblocks-logout',
   templateUrl: './logout.page.html',
   styleUrls: ['./logout.page.scss'],
 })

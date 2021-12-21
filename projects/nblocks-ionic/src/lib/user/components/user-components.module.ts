@@ -5,12 +5,19 @@ import { IonicModule } from '@ionic/angular';
 import { TranslateModule } from '@ngx-translate/core';
 import { SharedDirectivesModule } from '../../shared/directives/shared-directives.module';
 import { SharedPipesModule } from '../../shared/pipes/shared-pipes.module';
-
-
+import { TableModule } from 'primeng/table';
+import { DropdownModule } from 'primeng/dropdown';
+import { InputSwitchModule } from 'primeng/inputswitch';
+import { ChipsModule } from 'primeng/chips';
+import { FormsModule } from '@angular/forms';
+import { InviteUsersModalComponent } from './user-list/invite-users-modal/invite-users-modal.component';
+import { UserPopoverComponent } from './user-list/user-popover/user-popover.component';
 
 @NgModule({
   declarations: [
-    UserListComponent
+    UserListComponent,
+    InviteUsersModalComponent,
+    UserPopoverComponent
   ],
   exports: [
     UserListComponent
@@ -18,6 +25,11 @@ import { SharedPipesModule } from '../../shared/pipes/shared-pipes.module';
   imports: [
     CommonModule,
     IonicModule,
+    FormsModule,
+    TableModule,
+    InputSwitchModule,
+    ChipsModule,
+    DropdownModule,
     TranslateModule,
     SharedDirectivesModule,
     SharedPipesModule

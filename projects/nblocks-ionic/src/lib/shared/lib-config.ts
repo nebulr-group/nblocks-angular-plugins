@@ -15,6 +15,25 @@ export interface LibConfig {
 
   /** View routes that are considered public accessable and interceptors should not require authentication context. E.g. `['/about', '/home']` */
   openRoutes: string[];
+
+  /** Available roles that users can bee assigned to. Must match your app model roles */
+  roles: string[];
+
+  /** Available languages that the user can set for the workspace. Can just be 'en' or 'sv' at the moment */
+  languages: string[];
+}
+
+export const defaultLibConfig = (config: Partial<LibConfig>): LibConfig => {
+  return {
+    apiHost: "http://localhost:3000",
+    logoPath: "https://www.northwhistle.com/wp-content/uploads/2021/08/NorthWhistle-logo-retina-2.png",
+    privacyPolicyUrl: "https://www.myapp.com/privacy",
+    graphqlPath: "/graphql",
+    openRoutes: ["/"],
+    roles: ["OWNER", "ADMIN", "MANAGER", "VIEWER"],
+    languages: ['en','sv'],
+    ...config
+  }
 }
    
 export const LibConfigService = new InjectionToken<LibConfig>('LibConfig');

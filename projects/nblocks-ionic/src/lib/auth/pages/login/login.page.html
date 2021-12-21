@@ -6,9 +6,9 @@
         <div class="ion-text-center">
           <nblocks-logo></nblocks-logo>
           <h2>
-            {{'AUTH.SIGN_IN'|translate}}
+            {{'NBLOCKS.AUTH.SIGN_IN'|translate}}
           </h2>
-          <p class="ion-text-center">{{'AUTH.SIGN_IN_SUB'|translate}}</p>
+          <p class="ion-text-center">{{'NBLOCKS.AUTH.SIGN_IN_SUB'|translate}}</p>
         </div>
       </ion-col>
     </ion-row>
@@ -16,27 +16,27 @@
       <ion-col size="12" size-sm="4" push-sm="4">
         <form #form="ngForm" (ngSubmit)="login(form)" (keyup)="handleKeyUp($event, form)">
           <ion-item lines="full">
-            <ion-label position="floating">{{'AUTH.EMAIL_ADDRESS'|translate}}</ion-label>
+            <ion-label position="floating">{{'NBLOCKS.AUTH.EMAIL_ADDRESS'|translate}}</ion-label>
             <ion-input name="username" type="email" ngModel required></ion-input>
           </ion-item>
 
           <ion-item lines="full">
-            <ion-label position="floating">{{'AUTH.PASSWORD'|translate}}</ion-label>
+            <ion-label position="floating">{{'NBLOCKS.AUTH.PASSWORD'|translate}}</ion-label>
             <ion-input name="password" type="password" ngModel required></ion-input>
           </ion-item>
           <ion-row>
             <ion-col>
               <div class="forgot-password ion-text-end">
                 <a [routerLink]="['/auth/forgot-password']"
-                  class="small-text subtitle-2 ">{{'AUTH.FORGOT_PASSWORD'|translate}}</a>
+                  class="small-text subtitle-2 ">{{'NBLOCKS.AUTH.FORGOT_PASSWORD'|translate}}</a>
               </div>
-              <p class="body-2 wrong-credentials" [hidden]="!error">{{'AUTH.WRONG_CREDENTIALS'|translate}}</p>
+              <p class="body-2 wrong-credentials" [hidden]="!error">{{'NBLOCKS.AUTH.WRONG_CREDENTIALS'|translate}}</p>
             </ion-col>
           </ion-row>
           <ion-row>
             <ion-col>
               <ion-button type="submit" class="small-text sign-in-button" [disabled]="form.invalid || loading"
-                [color]="error ? 'danger' : ''" expand="block">{{'AUTH.SIGN_IN_BUTTON'|translate}}</ion-button>
+                [color]="error ? 'danger' : ''" expand="block">{{'NBLOCKS.AUTH.SIGN_IN_BUTTON'|translate}}</ion-button>
             </ion-col>
           </ion-row>
         </form>

@@ -1,0 +1,101 @@
+{
+	"NBLOCKS": {
+		"ERROR_MESSAGE": {
+			"UNAUTHORIZED": "Du behöver logga in igen",
+			"FORBIDDEN": "Du saknar tillstånd att göra detta",
+			"MUST_BE_OWNER": "Du behöver vara ägare till kontot",
+			"GENERAL": "Ett fel uppstod. Prova igen eller kontakta support.",
+			"INTERNAL_SERVER_ERROR": "Ett fel uppstod. Prova igen eller kontakta support."
+		},
+		"TOAST_MESSAGE": {
+			"LOGIN_AGAIN": "Du behöver logga in igen",
+			"LOGGED_OUT": "Du loggades ut",
+			"RESET_PASSWORD_SENT": "Kontrollera din email-inbox",
+			"PASSWORD_RESETTED": "Lösenordet ändrat! Logga in med dina nya uppgifter."
+		},
+	  "AUTH": {
+		"SIGN_IN": "Logga in till Northwhistle",
+		"SIGN_IN_SUB": "Fortsätt med den e -postadress du använde för att registrera dig.",
+		"SET_NEW_PASSWORD": "Ange ett nytt lösenord",
+		"SET_NEW_PASSWORD_SUB": "Ange ditt nya lösenord som du kommer att använda för framtida inloggningar.",
+		"ENTER_NEW_PASSWORD": "Ange ett nytt lösenord",
+		"ENTER_NEW_PASSWORD_REPEAT": "Upprepa ditt nya lösenord",
+		"EMAIL_ADDRESS": "Email adress",
+		"PASSWORD": "Lösenord",
+		"FORGOT_PASSWORD": "Glömt lösenord?",
+		"SIGN_IN_BUTTON": "Logga in",
+		"SIGN_OUT_BUTTON": "Logga ut",
+		"SIGNING_OUT_LOADING": "Loggar ut...",
+		"WRONG_CREDENTIALS": "Felaktiga uppgifter, försök igen.",
+		"NO_TENANT": "Du tillhör inte någon arbetsyta.",
+		"UNNAMED_TENANT": "Ny arbetsyta",
+		"TRADEMARK": "@{{year}} Nebulr AB All rights reserved",
+		"PRIVACY_POLICY": "Integritetspolicy",
+		"RESET_PASSWORD": "Återställ lösenord",
+		"RESET_PASSWORD_SUB": "Ange den e -postadress som används för att logga in på ditt konto.",
+		"SEND": "Få en återställningslänk",
+		"COMPLETE_PROFILE": "Färdigställ din profil",
+		"COMPLETE_PROFILE_DESCRIPTION": "Det är första gången du loggar in! Fyll i din information nedan för att andra i teamet ska känna igen dig.",
+		"FIRSTNAME": "Förnamn",
+		"LASTNAME": "Efternamn",
+		"PHONENUMBER": "Telefonnummer",
+		"SAVE": "Spara",
+		"DONT_HAVE_AN_ACCOUNT": "Har du inget konto?",
+		"SIGN_UP": "Registrera konto",
+		"CHOOSE_USER_SUB": "Välj arbetsytan för den organisation du vill logga in på",
+		"PASSWORD_STRENGTH_VALIDATION": {
+		  "passwordStrength_minLength": "Minimal length: 10 characters",
+		  "passwordStrength_noUppercaseLetter": "Should contain uppercase letter",
+		  "passwordStrength_noLowercaseLetter": "Should contain lowercase letter",
+		  "passwordStrength_noNumber": "Should contain digit",
+		  "passwordStrength_noSpecialCharacter": "Should contain special character"
+		}
+	  },
+	  "USER": {
+		"NAME": "Namn",
+		"NO_NAME": "Inbjuden användare",
+		"YOU": "Du",
+		"EXTERNAL": "Extern",
+		"DELETE":"Radera användare",
+		"SEND_RESET_PASSWORD_LINK": "Skicka återställ lösenordslänk"
+	  },
+	  "ROLE": {
+		"OWNER": "Ägare",
+		"ADMIN": "Admin",
+		"MANAGER": "Manager",
+		"VIEWER": "Läsbehörighet"
+	  },
+	  "TENANT": "Arbetsyta",
+	  "TENANT_NAME":"Namn",
+	  "USERS": "Användare",
+	  "INVITE": "Bjud in",
+	  "INVITE_USERS":"Bjud in användare",
+	  "INVITE_USERS_PLACEHOLDER":"Du kan bjuda in flera användare genom att klicka enter.",
+	  "ROLE_LABEL":"Roll",
+	  "EMAIL_SHORT": "Email",
+	  "EMAIL_LONG": "Emailadress",
+	  "ENABLED": "Aktiverad",
+	  "CANCEL": "Avbryt",
+	  "LANGUAGE": "Språk",
+	  "LANGUAGES": {
+		"EN": "Engelska",
+		"SV": "Svenska"
+	  },
+	  "DATE_CREATED": "Datum skapad",
+	  "DATE_FORMAT_MEDIUM": "d MMM y",
+	  "DATETIME_FORMAT_MEDIUM": "d MMM y, HH:mm:ss",
+	  "VERIFY_MODAL": {
+		"RESET_PASSWORD": {
+		  "TITLE":"Återställ lösenord",
+		  "BODY":"Är du säker på att du vill skicka en länk för återställning av lösenord?"
+		},
+		"DELETE_USER": {
+		  "TITLE":"Radera användare",
+		  "BODY":"Är du säker på att du vill radera användaren? Användaren kommer aldrig kunna logga in igen."
+		},
+		"CANCEL": "Cancel",
+		"VERIFY": "OK"
+	  }
+	}
+  }
+	

@@ -20,8 +20,8 @@ export class ToastService {
    */
   async presentError(translationKeys: string[]): Promise<void> {
     const message = uniq(translationKeys).map((key: string) => {
-      const translation = this.translateService.instant(`ERROR_MESSAGE.${key}`);
-      return translation !== key ? translation : this.translateService.instant("ERROR_MESSAGE.GENERAL");
+      const translation = this.translateService.instant(`NBLOCKS.ERROR_MESSAGE.${key}`);
+      return translation !== key ? translation : this.translateService.instant("NBLOCKS.ERROR_MESSAGE.GENERAL");
     }).join("\n");
     return this._presentToast(message, true);
   }
@@ -33,7 +33,7 @@ export class ToastService {
    */
   async presentMessage(translationKeys: string[]): Promise<void> {
     const message = uniq(translationKeys).map((key: string) => {
-      const translation = this.translateService.instant(`TOAST_MESSAGE.${key}`);
+      const translation = this.translateService.instant(`NBLOCKS.TOAST_MESSAGE.${key}`);
       return translation;
     }).join("\n");
     return this._presentToast(message, false);

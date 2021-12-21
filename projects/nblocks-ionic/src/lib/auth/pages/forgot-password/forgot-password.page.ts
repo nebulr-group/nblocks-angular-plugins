@@ -5,7 +5,7 @@ import { ToastService } from '../../../shared/toast.service';
 import { AuthService } from '../../auth.service';
 
 @Component({
-  selector: 'app-forgot-password',
+  selector: 'nblocks-forgot-password',
   templateUrl: './forgot-password.page.html',
   styleUrls: ['./forgot-password.page.scss'],
 })

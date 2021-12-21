@@ -1,0 +1,15 @@
+<h2>
+  {{titleKey | translate}}
+</h2>
+<p>
+  {{questionKey | translate}}
+</p>
+
+<div class="ion-float-right">
+  <ion-button fill="outline" color="dark" (click)="cancel()">
+    {{'NBLOCKS.VERIFY_MODAL.CANCEL'|translate}}
+  </ion-button>
+  <ion-button (click)="submit()">
+    {{'NBLOCKS.VERIFY_MODAL.VERIFY'|translate}}  
+  </ion-button>
+</div>

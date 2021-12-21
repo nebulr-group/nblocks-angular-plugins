@@ -4,6 +4,8 @@ import { EditTenantComponent } from './edit-tenant/edit-tenant.component';
 import { IonicModule } from '@ionic/angular';
 import { TranslateModule } from '@ngx-translate/core';
 import { SharedDirectivesModule } from '../../shared/directives/shared-directives.module';
+import { FormsModule } from '@angular/forms';
+import { DropdownModule } from 'primeng/dropdown';
 
 
 
@@ -19,6 +21,8 @@ import { SharedDirectivesModule } from '../../shared/directives/shared-directive
     IonicModule,
     TranslateModule,
     SharedDirectivesModule,
+    DropdownModule,
+    FormsModule
   ]
 })
 export class TenantComponentsModule { }

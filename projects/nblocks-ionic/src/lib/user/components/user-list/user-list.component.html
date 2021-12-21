@@ -1,94 +1,60 @@
 <ion-row>
-    <ion-col class="main-column">
-      <div>
-        <span class="h4" style="display: inline-block">
-          {{ 'USERS' | translate }}
-        </span>
-        <!-- <ion-button
-          (click)="showInviteUsersModal()"
-          class="ion-float-right add-button"
-        > -->
-        <ion-button class="ion-float-right add-button">
-          {{ 'INVITE_USERS' | translate }}
-        </ion-button>
+  <ion-col>
+    <ion-row>
+      <div class="btn-container">
+        <ion-button
+        (click)="showInviteUsersModal()"
+        class="ion-float-right"
+      >
+        {{ 'NBLOCKS.INVITE_USERS' | translate }}
+      </ion-button>
       </div>
-      <table>
-        <tr>
-            <th>{{ 'USERS' | translate }}</th>
-            <th>{{ 'ROLE_LABEL' | translate }}</th>
-            <th>{{ 'EMAIL' | translate }}</th>
-            <th>{{ 'CREATED' | translate }}</th>
-            <th>{{ 'ENABLED' | translate }}</th>
-        </tr>
-        <tr *ngFor="let user of users$ | async; index as i" [ngClass]="{ 'user-disabled-row': user.enabled == false }">
-            <td>
-                {{ user.fullName?.toString() | safeFullName }}
-                <ion-badge *ngIf="isYou(user)" class="small-text" color="primary">{{"USER.YOU" | translate}}</ion-badge>
-                <ion-badge *ngIf="isExternal(user)" class="small-text" color="primary">{{"USER.EXTERNAL" | translate}}</ion-badge>
-            </td>
-            <td>
-                <span>{{ 'ROLE.' + user.role | translate }}</span>
-            </td>
-            <td>
-                {{ user.email }}
-            </td>
-            <td>
-                {{ user.createdAt | date: ('DATETIME_FORMAT_MEDIUM' | translate) }}
-            </td>
-            <td>
-                <pre>Enabled {{user.enabled | json}}</pre>
-                <ion-icon
-                    size="large"
-                    *ngIf="isYou(user)"
-                    name="ellipsis-horizontal-circle-sharp"
-                    class="user-popover-menu table-action-buttons ion-float-right"
-                ></ion-icon>
-            </td>
-        </tr>
-      </table>
-      <!-- <p-table [value]="users">
+    </ion-row>
+
+    <ion-row>
+      <p-table [value]="mutableUsers" class="user-table">
         <ng-template pTemplate="header">
           <tr>
-            <th>{{ 'USERS' | translate }}</th>
-            <th>{{ 'ROLE_LABEL' | translate }}</th>
-            <th>{{ 'EMAIL' | translate }}</th>
-            <th>{{ 'CREATED' | translate }}</th>
-            <th>{{ 'ENABLED' | translate }}</th>
+            <th>{{ 'NBLOCKS.USER.NAME' | translate }}</th>
+            <th>{{ 'NBLOCKS.ROLE_LABEL' | translate }}</th>
+            <th>{{ 'NBLOCKS.EMAIL_SHORT' | translate }}</th>
+            <th>{{ 'NBLOCKS.DATE_CREATED' | translate }}</th>
+            <th>{{ 'NBLOCKS.ENABLED' | translate }}</th>
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-user>
           <tr [ngClass]="{ 'user-disabled-row': user.enabled == false }">
             <td>
               {{ user.fullName | safeFullName }}
-              <ion-badge *ngIf="isYou(user)" class="small-text" color="primary">{{"USER.YOU" | translate}}</ion-badge>
-              <ion-badge *ngIf="isExternal(user)" class="small-text" color="primary">{{"USER.EXTERNAL" | translate}}</ion-badge>
+              <ion-badge *ngIf="isYou(user)" class="small-text" color="primary">{{"NBLOCKS.USER.YOU" | translate}}</ion-badge>
+              <ion-badge *ngIf="isExternal(user)" class="small-text" color="primary">{{"NBLOCKS.USER.EXTERNAL" | translate}}</ion-badge>
             </td>
             <td>
-              <p-dropdown [options]="roles" [(ngModel)]="user.role" [hidden]="currentUser?.isSameUser(user)" (onChange)="onRoleChange(user)"></p-dropdown>
-              <span *ngIf="currentUser?.isSameUser(user)">{{ 'ROLE.' + user.role | translate }}</span>
+              <p-dropdown [options]="roles" [(ngModel)]="user.role" [hidden]="isYou(user)" (onChange)="onRoleChange(user)"></p-dropdown>
+              <span *ngIf="isYou(user)">{{ 'NBLOCKS.ROLE.' + user.role | translate }}</span>
             </td>
             <td>{{ user.email }}</td>
             <td>
-              {{ user.createdAt | date: ('DATETIME_FORMAT_MEDIUM' | translate) }}
+              {{ user.createdAt | date: ('NBLOCKS.DATETIME_FORMAT_MEDIUM' | translate) }}
             </td>
             <td>
               <p-inputSwitch 
               class="table-action-buttons"
-              *ngIf="!currentUser?.isSameUser(user)"
+              *ngIf="!isYou(user)"
               (onChange)="toggleEnabled(user)" 
               [(ngModel)]="user.enabled">
               </p-inputSwitch>
               <ion-icon
                 size="large"
-                *ngIf="!currentUser?.isSameUser(user)"
+                *ngIf="!isYou(user)"
                 name="ellipsis-horizontal-circle-sharp"
                 class="user-popover-menu table-action-buttons ion-float-right"
-                (click)="presentPopover($event, user)"
+                (click)="presentUserPopover(user)"
               ></ion-icon>
             </td>
           </tr>
         </ng-template>
-      </p-table> -->
-    </ion-col>
-  </ion-row>
-  
+      </p-table>
+    </ion-row>
+  </ion-col>
+</ion-row>
