@@ -19,7 +19,9 @@ From the root directory of this project (not in library) run `ng build`.
 All libraries will compiled to different directories under `dist/`.
 
 ### Publish to NPM
-Once built, step into each compiled library and run `npm publish`. 
+* To publish a library, make sure to update the package.json version in the project sub folder.
+* Make sure you're logged into npm. E.g. `npm login`
+* Run `npm run publish-${libraryName}`, e.g. `npm run publish-ionic`. 
 
 ### Test library locally with NPM link
 A library can be tested locally without publishing.

@@ -6,6 +6,7 @@
     "start": "ng serve",
     "build": "ng build",
     "prebuild": "rimraf dist",
+    "publish-ionic": "npm run build && cd dist/nblocks-ionic && npm publish",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
