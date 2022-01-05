@@ -26,7 +26,7 @@ export interface LibConfig {
 export const defaultLibConfig = (config: Partial<LibConfig>): LibConfig => {
   return {
     apiHost: "http://localhost:3000",
-    logoPath: "https://www.northwhistle.com/wp-content/uploads/2021/08/NorthWhistle-logo-retina-2.png",
+    logoPath: "http://nblocks.dev/wp-content/uploads/2021/12/nblocks-testlogo.png",
     privacyPolicyUrl: "https://www.myapp.com/privacy",
     graphqlPath: "/graphql",
     openRoutes: ["/"],
