@@ -11,11 +11,18 @@ import { AuthService } from '../../auth.service';
 export class LoginPage implements OnInit {
   loading = false;
   error = false;
+  googleButton = false;
+  githubButton = false;
+  facebookButton = false;
 
   constructor(
     private readonly navCtrl: NavController,
     private readonly authService: AuthService
-  ) {}
+  ) {
+    this.googleButton = authService.GOOGLE_BUTTON_ENABLED;
+    this.githubButton = authService.FACEBOOK_BUTTON_ENABLED;
+    this.facebookButton = authService.GITHUB_BUTTON_ENABLED;
+  }
 
   ngOnInit() {
     this.authService.clearAuthStorage();
