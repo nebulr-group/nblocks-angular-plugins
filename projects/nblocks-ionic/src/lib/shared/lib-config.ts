@@ -31,7 +31,6 @@ export interface LibConfig {
       github: boolean;
       facebook: boolean;
     }
-
   },
 }
 
