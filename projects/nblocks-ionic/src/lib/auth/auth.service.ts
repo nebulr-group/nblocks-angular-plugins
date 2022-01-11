@@ -42,9 +42,9 @@ export class AuthService {
     // Social Login Configs  
     this.NBLOCKS_APP_ID = this.nBlocksLibService.config.socialLogins.appId;
     this.NBLOCKS_ACCOUNT_API_HOST = this.nBlocksLibService.config.socialLogins.accountApiHost;
-    this.GOOGLE_BUTTON_ENABLED = this.nBlocksLibService.config.socialLogins.google;
-    this.GITHUB_BUTTON_ENABLED = this.nBlocksLibService.config.socialLogins.github;
-    this.FACEBOOK_BUTTON_ENABLED = this.nBlocksLibService.config.socialLogins.facebook;
+    this.GOOGLE_BUTTON_ENABLED = this.nBlocksLibService.config.socialLogins.providers.google;
+    this.GITHUB_BUTTON_ENABLED = this.nBlocksLibService.config.socialLogins.providers.github;
+    this.FACEBOOK_BUTTON_ENABLED = this.nBlocksLibService.config.socialLogins.providers.facebook;
 
     this.checkCurrentUserAuthenticated();
   }

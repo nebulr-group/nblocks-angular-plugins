@@ -24,11 +24,14 @@ export interface LibConfig {
 
   /** Available social login providers and account api data that the user can use for authorization. */
   socialLogins: {
-    google: boolean;
-    github: boolean;
-    facebook: boolean;
     accountApiHost: string;
     appId: string;
+    providers: {
+      google: boolean;
+      github: boolean;
+      facebook: boolean;
+    }
+
   },
 }
 
@@ -44,9 +47,11 @@ export const defaultLibConfig = (config: Partial<LibConfig>): LibConfig => {
     socialLogins: {
       accountApiHost: "http://localhost:3010",
       appId: '61c462cd422c2300088d369d',
-      google: true,
-      github: true,
-      facebook: false,
+      providers: {
+        google: true,
+        github: true,
+        facebook: false,
+      }
     },
     ...config
   }
