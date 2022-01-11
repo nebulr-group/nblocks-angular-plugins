@@ -41,19 +41,19 @@
           </ion-row>
           <ion-row>
             <ion-col>
-              <ion-button *ngIf=googleButton class="small-text" (click)="handleSocialLogin('google')"
+              <ion-button *ngIf=nblocksLibService.config.socialLogins.providers.google class="small-text" (click)="handleSocialLogin('google')"
                 expand="block">
                 <ion-icon slot="start" name="logo-google"></ion-icon>
                 {{'NBLOCKS.AUTH.SIGN_IN_WITH_BUTTON'|translate}} Google
               </ion-button>
           
-              <ion-button *ngIf=githubButton class="small-text" (click)="handleSocialLogin('github')"
+              <ion-button *ngIf=nblocksLibService.config.socialLogins.providers.github class="small-text" (click)="handleSocialLogin('github')"
                 expand="block">
                 <ion-icon slot="start" name="logo-github"></ion-icon>
                 {{'NBLOCKS.AUTH.SIGN_IN_WITH_BUTTON'|translate}} GitHub
               </ion-button>
           
-              <ion-button *ngIf=facebookButton class="small-text" (click)="handleSocialLogin('facebook')"
+              <ion-button *ngIf=nblocksLibService.config.socialLogins.providers.facebook class="small-text" (click)="handleSocialLogin('facebook')"
                 expand="block">
                 <ion-icon slot="start" name="logo-facebook"></ion-icon>
                 {{'NBLOCKS.AUTH.SIGN_IN_WITH_BUTTON'|translate}} Facebook

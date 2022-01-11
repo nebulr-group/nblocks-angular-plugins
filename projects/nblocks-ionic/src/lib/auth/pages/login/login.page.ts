@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { NavController } from '@ionic/angular';
+import { NBlocksLibService } from '../../../nblocks-lib.service';
 import { AuthService } from '../../auth.service';
 
 @Component({
@@ -11,18 +12,12 @@ import { AuthService } from '../../auth.service';
 export class LoginPage implements OnInit {
   loading = false;
   error = false;
-  googleButton = false;
-  githubButton = false;
-  facebookButton = false;
 
   constructor(
     private readonly navCtrl: NavController,
-    private readonly authService: AuthService
-  ) {
-    this.googleButton = authService.GOOGLE_BUTTON_ENABLED;
-    this.githubButton = authService.FACEBOOK_BUTTON_ENABLED;
-    this.facebookButton = authService.GITHUB_BUTTON_ENABLED;
-  }
+    private readonly authService: AuthService,
+    readonly nblocksLibService: NBlocksLibService
+  ) {}
 
   ngOnInit() {
     this.authService.clearAuthStorage();

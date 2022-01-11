@@ -27,11 +27,15 @@ export class SocialLoginPage implements OnInit {
       const { failure, token } = params;
 
       if (failure !== 'true') {
-        await this.authService.authorize(token);
-        this.navCtrl.navigateForward('auth/choose-user');
-      } else {
-        this.navCtrl.navigateForward('auth/login');
+        try {
+          await this.authService.storeAuthToken(token);
+          this.navCtrl.navigateForward('auth/choose-user');
+        } catch (error) {
+          console.error('Something went wrong upon session token fetch', error);
+        }
       }
+
+      this.navCtrl.navigateForward('auth/login');
     });
   }
 }

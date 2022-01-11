@@ -24,27 +24,17 @@ export class AuthService {
   }
 
   private BASE_URL: string;
+  private readonly APP_ID: string;
 
   private readonly _currentUserSource = new BehaviorSubject<CurrentUser>(new CurrentUser(false));
   readonly currentUser$ = this._currentUserSource.asObservable();
-
-  private readonly NBLOCKS_APP_ID: string;
-  private readonly NBLOCKS_ACCOUNT_API_HOST: string;
-  readonly GOOGLE_BUTTON_ENABLED: boolean = false;
-  readonly FACEBOOK_BUTTON_ENABLED: boolean = false;
-  readonly GITHUB_BUTTON_ENABLED: boolean = false;
 
   constructor(
     private readonly httpClient: HttpClient,
     private readonly nBlocksLibService: NBlocksLibService
   ) {
-    this.BASE_URL = this.nBlocksLibService.config.apiHost;
-    // Social Login Configs  
-    this.NBLOCKS_APP_ID = this.nBlocksLibService.config.socialLogins.appId;
-    this.NBLOCKS_ACCOUNT_API_HOST = this.nBlocksLibService.config.socialLogins.accountApiHost;
-    this.GOOGLE_BUTTON_ENABLED = this.nBlocksLibService.config.socialLogins.providers.google;
-    this.GITHUB_BUTTON_ENABLED = this.nBlocksLibService.config.socialLogins.providers.github;
-    this.FACEBOOK_BUTTON_ENABLED = this.nBlocksLibService.config.socialLogins.providers.facebook;
+    this.BASE_URL = this.nBlocksLibService.config.apiHost; 
+    this.APP_ID = this.nBlocksLibService.config.socialLogins.appId;
 
     this.checkCurrentUserAuthenticated();
   }
@@ -69,15 +59,7 @@ export class AuthService {
   }
 
   async handleSocialLogin(provider: string): Promise<void> {
-    window.location.href = `${this.NBLOCKS_ACCOUNT_API_HOST}${this.ENDPOINTS.socialLogin}/${provider}/${this.NBLOCKS_APP_ID}`;
-  }
-
-  async authorize(sessionToken: string): Promise<void> {
-    try {
-      await this.storeAuthToken(sessionToken);
-    } catch (error) {
-      console.error('Something went wrong upon session token fetch', error);
-    }
+    window.location.href = `${this.nBlocksLibService.config.socialLogins.accountApiHost}${this.ENDPOINTS.socialLogin}/${provider}/${this.APP_ID}`;
   }
 
   async loadTenantUsers():Promise<any> {

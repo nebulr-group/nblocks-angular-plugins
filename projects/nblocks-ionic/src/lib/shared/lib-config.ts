@@ -47,8 +47,8 @@ export const defaultLibConfig = (config: Partial<LibConfig>): LibConfig => {
       accountApiHost: "http://localhost:3010",
       appId: '61c462cd422c2300088d369d',
       providers: {
-        google: true,
-        github: true,
+        google: false,
+        github: false,
         facebook: false,
       }
     },
