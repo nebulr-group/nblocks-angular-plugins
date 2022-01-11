@@ -1,0 +1,17 @@
+<ion-progress-bar type="indeterminate" [hidden]="!loading"></ion-progress-bar>
+<ion-content class="ion-padding">
+  <ion-grid>
+    <ion-row class="ion-justify-content-center">
+      <ion-col class="ion-align-self-center">
+        <div class="ion-text-center">
+          <nblocks-logo></nblocks-logo>
+          <h2>{{'AUTH.SIGNINIG_IN'|translate}}</h2>
+          <div class="ion-text-center">
+            <ion-spinner name="circles" color="primary"></ion-spinner>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content> 
+<nblocks-footer></nblocks-footer>

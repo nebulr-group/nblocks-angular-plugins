@@ -39,8 +39,28 @@
                 [color]="error ? 'danger' : ''" expand="block">{{'NBLOCKS.AUTH.SIGN_IN_BUTTON'|translate}}</ion-button>
             </ion-col>
           </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-button *ngIf=authService.GOOGLE_BUTTON_ENABLED class="small-text" (click)="handleSocialLogin('google')"
+                expand="block">
+                <ion-icon slot="start" name="logo-google"></ion-icon>
+                {{'NBLOCKS.AUTH.SIGN_IN_WITH_BUTTON'|translate}} Google
+              </ion-button>
+          
+              <ion-button *ngIf=authService.GITHUB_BUTTON_ENABLED class="small-text" (click)="handleSocialLogin('github')"
+                expand="block">
+                <ion-icon slot="start" name="logo-github"></ion-icon>
+                {{'NBLOCKS.AUTH.SIGN_IN_WITH_BUTTON'|translate}} GitHub
+              </ion-button>
+          
+              <ion-button *ngIf=authService.FACEBOOK_BUTTON_ENABLED class="small-text" (click)="handleSocialLogin('facebook')"
+                expand="block">
+                <ion-icon slot="start" name="logo-facebook"></ion-icon>
+                {{'NBLOCKS.AUTH.SIGN_IN_WITH_BUTTON'|translate}} Facebook
+              </ion-button>
+            </ion-col>
+          </ion-row>
         </form>
-
       </ion-col>
     </ion-row>
   </ion-grid>

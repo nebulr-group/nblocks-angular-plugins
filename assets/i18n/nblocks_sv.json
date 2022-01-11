@@ -14,7 +14,8 @@
 			"PASSWORD_RESETTED": "Lösenordet ändrat! Logga in med dina nya uppgifter."
 		},
 	  "AUTH": {
-		"SIGN_IN": "Logga in till Northwhistle",
+		"SIGN_IN": "Logga in till My App",
+		"SIGNINIG_IN": "Loggar in till My App",
 		"SIGN_IN_SUB": "Fortsätt med den e -postadress du använde för att registrera dig.",
 		"SET_NEW_PASSWORD": "Ange ett nytt lösenord",
 		"SET_NEW_PASSWORD_SUB": "Ange ditt nya lösenord som du kommer att använda för framtida inloggningar.",

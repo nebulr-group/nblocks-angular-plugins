@@ -21,6 +21,15 @@ export interface LibConfig {
 
   /** Available languages that the user can set for the workspace. Can just be 'en' or 'sv' at the moment */
   languages: string[];
+
+  /** Available social login providers that the user can use for authorization. */
+  socialLogins: {
+    google: boolean;
+    github: boolean;
+    facebook: boolean;
+  },
+
+  nblocksAPIId: string;
 }
 
 export const defaultLibConfig = (config: Partial<LibConfig>): LibConfig => {
@@ -32,6 +41,12 @@ export const defaultLibConfig = (config: Partial<LibConfig>): LibConfig => {
     openRoutes: ["/"],
     roles: ["OWNER", "ADMIN", "MANAGER", "VIEWER"],
     languages: ['en','sv'],
+    socialLogins: {
+      google: true,
+      github: true,
+      facebook: false,
+    },
+    nblocksAPIId: '',
     ...config
   }
 }

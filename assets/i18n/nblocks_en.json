@@ -15,6 +15,7 @@
 	  },
 	  "AUTH": {
 		"SIGN_IN": "Sign in to MyApp",
+		"SIGNINIG_IN": "Signing in to MyApp",
 		"SIGN_IN_SUB": "Continue with the email address you used to sign up.",
 		"SET_NEW_PASSWORD": "Set a new password",
 		"SET_NEW_PASSWORD_SUB": "Set your new password which you will be using for any future logins.",

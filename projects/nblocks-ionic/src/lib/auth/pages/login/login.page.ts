@@ -14,7 +14,7 @@ export class LoginPage implements OnInit {
 
   constructor(
     private readonly navCtrl: NavController,
-    private readonly authService: AuthService,
+    private readonly authService: AuthService
   ) {}
 
   ngOnInit() {
@@ -41,5 +41,9 @@ export class LoginPage implements OnInit {
     if (e.key === 'Enter' && form.valid) {
       this.login(form);
     }
+  }
+
+  async handleSocialLogin(provider: string): Promise<void> {
+    await this.authService.handleSocialLogin(provider);
   }
 }

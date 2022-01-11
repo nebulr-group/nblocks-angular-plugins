@@ -19,19 +19,32 @@ export class AuthService {
     tenantUsers: "/auth-proxy/tenantUsers",
     currentUser: "/auth/currentUser",
     password: "/auth-proxy/password",
-    user: "/auth-proxy/user"
+    user: "/auth-proxy/user",
+    socialLogin: "/auth-proxy/social-login"
   }
 
   private BASE_URL: string;
+  private NBLOCKS_APP_ID: string;
 
   private readonly _currentUserSource = new BehaviorSubject<CurrentUser>(new CurrentUser(false));
   readonly currentUser$ = this._currentUserSource.asObservable();
+
+  readonly GOOGLE_BUTTON_ENABLED: boolean = false;
+  readonly FACEBOOK_BUTTON_ENABLED: boolean = false;
+  readonly GITHUB_BUTTON_ENABLED: boolean = false;
 
   constructor(
     private readonly httpClient: HttpClient,
     private readonly nBlocksLibService: NBlocksLibService
   ) {
+    this.NBLOCKS_APP_ID = this.nBlocksLibService.config.apiHost;
     this.BASE_URL = this.nBlocksLibService.config.apiHost;
+
+    this.GOOGLE_BUTTON_ENABLED = this.nBlocksLibService.config.socialLogins.google;
+    this.GITHUB_BUTTON_ENABLED = this.nBlocksLibService.config.socialLogins.github;
+    this.FACEBOOK_BUTTON_ENABLED = this.nBlocksLibService.config.socialLogins.facebook;
+
+
     this.checkCurrentUserAuthenticated();
   }
 
@@ -45,9 +58,25 @@ export class AuthService {
     return {year:`${new Date().getFullYear()}`};
   }
 
+  async storeAuthToken(token: string): Promise<void> {
+    await Storage.set({key: this.TOKEN_STORAGE_KEY, value: token});
+  }
+
   async authenticate(username:string, password:string): Promise<void> {
     const result:any = await this.httpClient.post(`${this.BASE_URL}${this.ENDPOINTS.authenticate}`, {username, password}).toPromise();
-    await Storage.set({key: this.TOKEN_STORAGE_KEY, value: result.token});
+    await this.storeAuthToken(result.token);
+  }
+
+  async handleSocialLogin(provider: string): Promise<void> {
+    window.location.href = `${this.BASE_URL}${this.ENDPOINTS.socialLogin}${provider}/${this.NBLOCKS_APP_ID}`;
+  }
+
+  async authorize(sessionToken: string): Promise<void> {
+    try {
+      await this.storeAuthToken(sessionToken);
+    } catch (error) {
+      console.error('Something went wrong upon session token fetch', error);
+    }
   }
 
   async loadTenantUsers():Promise<any> {
@@ -124,12 +153,12 @@ export class AuthService {
       this.httpClient.get<AuthTenantUserResponseDto>(
           `${this.BASE_URL}${this.ENDPOINTS.currentUser}`).pipe(
               map((tu) => new CurrentUser(true, tu))).subscribe(currentUser => {this._currentUserSource.next(currentUser)},
-              error => { 
+              error => {
                   if (error instanceof HttpErrorResponse) {
                       console.log("handled error", error);
                   } else {
                       console.error("Handled generic error", error)
-                  } 
+                  }
               }
       );
   }
