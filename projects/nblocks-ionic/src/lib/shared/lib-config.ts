@@ -22,14 +22,14 @@ export interface LibConfig {
   /** Available languages that the user can set for the workspace. Can just be 'en' or 'sv' at the moment */
   languages: string[];
 
-  /** Available social login providers that the user can use for authorization. */
+  /** Available social login providers and account api data that the user can use for authorization. */
   socialLogins: {
     google: boolean;
     github: boolean;
     facebook: boolean;
+    accountApiHost: string;
+    appId: string;
   },
-
-  nblocksAPIId: string;
 }
 
 export const defaultLibConfig = (config: Partial<LibConfig>): LibConfig => {
@@ -42,11 +42,12 @@ export const defaultLibConfig = (config: Partial<LibConfig>): LibConfig => {
     roles: ["OWNER", "ADMIN", "MANAGER", "VIEWER"],
     languages: ['en','sv'],
     socialLogins: {
+      accountApiHost: "http://localhost:3010",
+      appId: '61c462cd422c2300088d369d',
       google: true,
       github: true,
       facebook: false,
     },
-    nblocksAPIId: '',
     ...config
   }
 }

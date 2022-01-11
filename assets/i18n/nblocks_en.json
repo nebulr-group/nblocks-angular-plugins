@@ -15,7 +15,7 @@
 	  },
 	  "AUTH": {
 		"SIGN_IN": "Sign in to MyApp",
-		"SIGNINIG_IN": "Signing in to MyApp",
+		"SIGNINIG_IN": "Signing in to MyApp...",
 		"SIGN_IN_SUB": "Continue with the email address you used to sign up.",
 		"SET_NEW_PASSWORD": "Set a new password",
 		"SET_NEW_PASSWORD_SUB": "Set your new password which you will be using for any future logins.",
@@ -25,6 +25,7 @@
 		"PASSWORD": "Password",
 		"FORGOT_PASSWORD": "Forgot Password?",
 		"SIGN_IN_BUTTON": "Sign in",
+		"SIGN_IN_WITH_BUTTON": "Sign in with",
 		"SIGN_OUT_BUTTON": "Sign out",
 		"SIGNING_OUT_LOADING": "Signing out...",
 		"WRONG_CREDENTIALS": "Wrong credentials, please try again.",

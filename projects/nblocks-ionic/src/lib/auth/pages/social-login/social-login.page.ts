@@ -5,8 +5,7 @@ import { AuthService } from '../../auth.service';
 
 @Component({
   selector: 'social-login',
-  templateUrl: './social-login.page.html',
-  styleUrls: ['./social-login.page.scss'],
+  templateUrl: './social-login.page.html'
 })
 export class SocialLoginPage implements OnInit {
   public loading = false;
