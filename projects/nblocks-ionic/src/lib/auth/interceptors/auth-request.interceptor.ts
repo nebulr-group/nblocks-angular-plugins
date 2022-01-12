@@ -88,7 +88,6 @@ export class AuthRequestInterceptor implements HttpInterceptor {
   }
 
   private handleError(error: any): Observable<any> {
-    // console.log("Received request error", error);
     return of([]);
   }
 }

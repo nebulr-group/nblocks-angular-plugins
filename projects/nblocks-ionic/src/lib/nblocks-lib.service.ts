@@ -6,6 +6,6 @@ import { LibConfig, LibConfigService } from './shared/lib-config';
 })
 export class NBlocksLibService {
   constructor(@Inject(LibConfigService) readonly config: LibConfig) {
-    console.log('Loaded config: ', config, this.config);
+    //console.log('Loaded config: ', config, this.config);
   }
 }

@@ -15,7 +15,6 @@ export class AccessControlDirective implements OnInit {
     ) { }
   
   ngOnInit(): void {
-    console.log("this.nblocksAccessControl", this.nblocksAccessControl);
     this.hide();
     this.authService.currentUser$.subscribe((currentUser) => {
       if (currentUser.authenticated && currentUser.hasRole(this.nblocksAccessControl)) {

@@ -7,11 +7,11 @@ export class CurrentUser {
 
     user?:AuthTenantUserResponseDto;
 
-    constructor(authenticated:boolean, user?:AuthTenantUserResponseDto) {
+    constructor(user?:AuthTenantUserResponseDto) {
         this.user = user;
-        this.authenticated = authenticated;
-        if (authenticated)
-            console.log("User is authenticated");
+        this.authenticated = user && !this._isAnonymous() ? true : false;
+        // if (this.authenticated)
+        //     console.log("User is authenticated");
     }
 
     getRole():string {
@@ -42,5 +42,9 @@ export class CurrentUser {
 
     hasNotRole(roles:string[]): boolean {
         return !this.hasRole(roles);
+    }
+
+    private _isAnonymous(): boolean {
+        return this.user?.username === 'ANONYMOUS';
     }
 }

@@ -13,7 +13,7 @@ const routes: Routes = [
     loadChildren: () => UserListPageModule
   }
 ];
-console.log("Loading user routes", routes);
+
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]

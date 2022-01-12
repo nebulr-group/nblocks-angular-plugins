@@ -8,7 +8,7 @@ const routes: Routes = [
     loadChildren: () => TenantPageModule
   }
 ];
-console.log("Loading tenant routes", routes);
+
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]

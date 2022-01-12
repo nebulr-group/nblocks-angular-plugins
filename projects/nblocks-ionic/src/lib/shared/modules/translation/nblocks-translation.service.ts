@@ -37,8 +37,6 @@ export class NblocksTranslationService {
     private readonly nBlocksLibService: NBlocksLibService
     ) {
 
-      console.log("NblocksTranslationService");
-
     // Register the default lang as the lang currently in use!
     this.languageChanged = new BehaviorSubject(this.translateService.currentLang);
     this.translateService.use(this.translateService.defaultLang);

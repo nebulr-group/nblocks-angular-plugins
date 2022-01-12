@@ -19,7 +19,6 @@ const routes: Routes = [
   }
 ];
 
-console.log("Loading core routes", routes);
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],

@@ -43,7 +43,7 @@ const routes: Routes = [
     loadChildren: () => SocialLoginPageModule
   },
 ];
-console.log("Loading auth routes", routes);
+
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]

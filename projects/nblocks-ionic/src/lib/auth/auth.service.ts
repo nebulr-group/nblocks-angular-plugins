@@ -26,7 +26,7 @@ export class AuthService {
   private BASE_URL: string;
   private readonly APP_ID: string;
 
-  private readonly _currentUserSource = new BehaviorSubject<CurrentUser>(new CurrentUser(false));
+  private readonly _currentUserSource = new BehaviorSubject<CurrentUser>(new CurrentUser());
   readonly currentUser$ = this._currentUserSource.asObservable();
 
   constructor(
@@ -117,7 +117,6 @@ export class AuthService {
       Storage.remove({ key: this.TOKEN_STORAGE_KEY }),
       Storage.remove({ key: this.USER_STORAGE_KEY }),
     ]);
-    console.log("Auth context cleared");
   }
 
   /**
@@ -135,7 +134,7 @@ export class AuthService {
       //TODO add rxjs catchError
       this.httpClient.get<AuthTenantUserResponseDto>(
           `${this.BASE_URL}${this.ENDPOINTS.currentUser}`).pipe(
-              map((tu) => new CurrentUser(true, tu))).subscribe(currentUser => {this._currentUserSource.next(currentUser)},
+              map((tu) => new CurrentUser(tu))).subscribe(currentUser => {this._currentUserSource.next(currentUser)},
               error => {
                   if (error instanceof HttpErrorResponse) {
                       console.log("handled error", error);
