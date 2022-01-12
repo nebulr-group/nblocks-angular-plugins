@@ -19,10 +19,12 @@ export class AuthService {
     tenantUsers: "/auth-proxy/tenantUsers",
     currentUser: "/auth/currentUser",
     password: "/auth-proxy/password",
-    user: "/auth-proxy/user"
+    user: "/auth-proxy/user",
+    socialLogin: "/social-login"
   }
 
   private BASE_URL: string;
+  private readonly APP_ID: string;
 
   private readonly _currentUserSource = new BehaviorSubject<CurrentUser>(new CurrentUser(false));
   readonly currentUser$ = this._currentUserSource.asObservable();
@@ -31,7 +33,9 @@ export class AuthService {
     private readonly httpClient: HttpClient,
     private readonly nBlocksLibService: NBlocksLibService
   ) {
-    this.BASE_URL = this.nBlocksLibService.config.apiHost;
+    this.BASE_URL = this.nBlocksLibService.config.apiHost; 
+    this.APP_ID = this.nBlocksLibService.config.socialLogins.appId;
+
     this.checkCurrentUserAuthenticated();
   }
 
@@ -45,9 +49,17 @@ export class AuthService {
     return {year:`${new Date().getFullYear()}`};
   }
 
+  async storeAuthToken(token: string): Promise<void> {
+    await Storage.set({key: this.TOKEN_STORAGE_KEY, value: token});
+  }
+
   async authenticate(username:string, password:string): Promise<void> {
     const result:any = await this.httpClient.post(`${this.BASE_URL}${this.ENDPOINTS.authenticate}`, {username, password}).toPromise();
-    await Storage.set({key: this.TOKEN_STORAGE_KEY, value: result.token});
+    await this.storeAuthToken(result.token);
+  }
+
+  async handleSocialLogin(provider: string): Promise<void> {
+    window.location.href = `${this.nBlocksLibService.config.socialLogins.accountApiHost}${this.ENDPOINTS.socialLogin}/${provider}/${this.APP_ID}`;
   }
 
   async loadTenantUsers():Promise<any> {
@@ -124,12 +136,12 @@ export class AuthService {
       this.httpClient.get<AuthTenantUserResponseDto>(
           `${this.BASE_URL}${this.ENDPOINTS.currentUser}`).pipe(
               map((tu) => new CurrentUser(true, tu))).subscribe(currentUser => {this._currentUserSource.next(currentUser)},
-              error => { 
+              error => {
                   if (error instanceof HttpErrorResponse) {
                       console.log("handled error", error);
                   } else {
                       console.error("Handled generic error", error)
-                  } 
+                  }
               }
       );
   }

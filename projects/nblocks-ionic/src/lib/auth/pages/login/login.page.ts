@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { NavController } from '@ionic/angular';
+import { NBlocksLibService } from '../../../nblocks-lib.service';
 import { AuthService } from '../../auth.service';
 
 @Component({
@@ -15,6 +16,7 @@ export class LoginPage implements OnInit {
   constructor(
     private readonly navCtrl: NavController,
     private readonly authService: AuthService,
+    readonly nblocksLibService: NBlocksLibService
   ) {}
 
   ngOnInit() {
@@ -41,5 +43,9 @@ export class LoginPage implements OnInit {
     if (e.key === 'Enter' && form.valid) {
       this.login(form);
     }
+  }
+
+  async handleSocialLogin(provider: string): Promise<void> {
+    await this.authService.handleSocialLogin(provider);
   }
 }

@@ -6,6 +6,7 @@ import { LoginPageModule } from './pages/login/login.module';
 import { LogoutPageModule } from './pages/logout/logout.module';
 import { OnboardingPageModule } from './pages/onboarding/onboarding.module';
 import { SetPasswordPageModule } from './pages/set-password/set-password.module';
+import { SocialLoginPageModule } from './pages/social-login/social-login.module';
 
 const routes: Routes = [
   {
@@ -36,6 +37,10 @@ const routes: Routes = [
   {
     path: 'onboarding',
     loadChildren: () => OnboardingPageModule
+  },
+  {
+    path: 'social-login',
+    loadChildren: () => SocialLoginPageModule
   },
 ];
 console.log("Loading auth routes", routes);
