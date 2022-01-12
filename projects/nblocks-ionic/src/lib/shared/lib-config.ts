@@ -44,7 +44,7 @@ export const defaultLibConfig = (config: Partial<LibConfig>): LibConfig => {
     roles: ["OWNER", "ADMIN", "MANAGER", "VIEWER"],
     languages: ['en','sv'],
     socialLogins: {
-      accountApiHost: "http://localhost:3010",
+      accountApiHost: "https://account-api.nebulr-core.com",
       appId: '61c462cd422c2300088d369d',
       providers: {
         google: false,
