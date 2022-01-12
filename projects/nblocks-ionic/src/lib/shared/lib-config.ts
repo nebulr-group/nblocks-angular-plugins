@@ -22,6 +22,9 @@ export interface LibConfig {
   /** Available languages that the user can set for the workspace. Can just be 'en' or 'sv' at the moment */
   languages: string[];
 
+  /** Enable password complexity according to ISO27001 */
+  passwordComplexity: boolean
+
   /** Available social login providers and account api data that the user can use for authorization. */
   socialLogins: {
     accountApiHost: string;
@@ -43,6 +46,7 @@ export const defaultLibConfig = (config: Partial<LibConfig>): LibConfig => {
     openRoutes: ["/"],
     roles: ["OWNER", "ADMIN", "MANAGER", "VIEWER"],
     languages: ['en','sv'],
+    passwordComplexity: false,
     socialLogins: {
       accountApiHost: "https://account-api.nebulr-core.com",
       appId: '61c462cd422c2300088d369d',

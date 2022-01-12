@@ -8,6 +8,7 @@ import {
 } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { NavController } from '@ionic/angular';
+import { NBlocksLibService } from '../../../nblocks-lib.service';
 import { ToastService } from '../../../shared/toast.service';
 import { AuthService } from '../../auth.service';
 
@@ -20,18 +21,27 @@ export class SetPasswordPage implements OnInit {
   public loading = false;
   private token!: string;
 
-  passwordForm = this.formBuilder.group({
-    password: ['', [Validators.required, this.passwordStrengthValidator]],
-    password_repeat: ['', [Validators.required, this.samePasswordValidator]],
-  });
+  passwordForm:FormGroup;
 
   constructor(
     private readonly route: ActivatedRoute,
     private readonly authService: AuthService,
     private readonly navCtrl: NavController,
     private readonly formBuilder: FormBuilder,
-    private readonly toastService: ToastService
+    private readonly toastService: ToastService,
+    private readonly nblocksLibService: NBlocksLibService
   ) {
+
+    if (this.nblocksLibService.config.passwordComplexity)
+      this.passwordForm = this.formBuilder.group({
+        password: ['', [Validators.required, this.passwordStrengthValidator]],
+        password_repeat: ['', [Validators.required, this.samePasswordValidator]],
+      });
+    else
+      this.passwordForm = this.formBuilder.group({
+        password: ['', [Validators.required]],
+        password_repeat: ['', [Validators.required, this.samePasswordValidator]],
+      });
   }
 
   ngOnInit(): void {
