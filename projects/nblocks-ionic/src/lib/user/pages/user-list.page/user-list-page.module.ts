@@ -5,6 +5,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { UserComponentsModule } from '../../components/user-components.module';
 import { UserListPageRoutingModule } from './user-list-page-routing.module';
 import { UserListPage } from './user-list.page';
+import { LoaderModule } from '../../../shared/modules/loader/loader.module';
 
 @NgModule({
   imports: [
@@ -12,7 +13,8 @@ import { UserListPage } from './user-list.page';
     IonicModule,
     UserListPageRoutingModule,
     TranslateModule,
-    UserComponentsModule
+    UserComponentsModule,
+    LoaderModule
   ],
   providers: [],
   declarations: [UserListPage]

@@ -13,6 +13,7 @@ import { PopoverService } from '../../../shared/popover.service';
 import { UserService } from '../../user.service';
 import { InviteUsersModalComponent, InviteUsersModalComponentResult } from './invite-users-modal/invite-users-modal.component';
 import { UserPopoverComponent, UserPopoverComponentResult } from './user-popover/user-popover.component';
+import { LoaderService } from '../../../shared/modules/loader/loader.service';
 
 @Component({
   selector: 'nblocks-user-list',
@@ -34,20 +35,23 @@ export class UserListComponent implements OnInit, OnDestroy {
     private readonly nblocksTranslationService: NblocksTranslationService,
     private readonly primengConfig: PrimeNGConfig,
     private readonly popoverService: PopoverService,
-    private readonly nBlocksLibService: NBlocksLibService
+    private readonly nBlocksLibService: NBlocksLibService,
+    private loaderService: LoaderService
   ) {
   }
 
   ngOnInit(): void {
+    this.loaderService.showLoader();
     //TODO should be set on host
     this.primengConfig.ripple = true;
     const authenticatedUser$ = this.authService.currentUser$.pipe(filter((u) => u.authenticated));
     const users$ = this.userService.list();
     this.subscriptions.add(
       combineLatest([authenticatedUser$, users$]).subscribe(([user, users]) => {
-        this.authenticatedUser = user;
-        this.mutableUsers = Utils.deepClone(users);
-      })
+          this.authenticatedUser = user;
+          this.mutableUsers = Utils.deepClone(users);
+          this.loaderService.hideLoader();
+        })
     );
 
     this.nblocksTranslationService.languageChanged.subscribe((lang) => {
@@ -72,6 +76,7 @@ export class UserListComponent implements OnInit, OnDestroy {
     if (result.data) {
       const data: InviteUsersModalComponentResult = result.data;
       if (data.action == InviteUsersModalComponent.SUBMIT_ACTION) {
+        this.loaderService.showLoader();
         this._inviteUsers(data.emails);
       }
     }
