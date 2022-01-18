@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { NavController } from '@ionic/angular';
+import { NBlocksLibService } from '../../../nblocks-lib.service';
 import { AuthService } from '../../auth.service';
 
 @Component({
@@ -15,6 +16,7 @@ export class OnboardingPage {
   constructor(
     private readonly navCtrl: NavController,
     private readonly authService: AuthService,
+    readonly nBlocksLibService: NBlocksLibService
   ) {
   }
 

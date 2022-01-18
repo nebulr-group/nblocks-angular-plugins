@@ -23,7 +23,17 @@ export interface LibConfig {
   languages: string[];
 
   /** Enable password complexity according to ISO27001 */
-  passwordComplexity: boolean
+  passwordComplexity: boolean;
+
+  /** Ask for personal information after first time user logs in. Can be setup to require specific fields */
+  onboarding: {
+    enabled: boolean,
+    requiredFields: {
+      firstName: boolean;
+      lastName: boolean;
+      phoneNumber: boolean;
+    }
+  }
 
   /** Available social login providers and account api data that the user can use for authorization. */
   socialLogins: {
@@ -47,6 +57,14 @@ export const defaultLibConfig = (config: Partial<LibConfig>): LibConfig => {
     roles: ["OWNER", "ADMIN", "MANAGER", "VIEWER"],
     languages: ['en','sv'],
     passwordComplexity: false,
+    onboarding: {
+      enabled: true,
+      requiredFields: {
+        firstName: true,
+        lastName: true,
+        phoneNumber: false
+      }
+    },
     socialLogins: {
       accountApiHost: "https://account-api.nebulr-core.com",
       appId: '61c462cd422c2300088d369d',

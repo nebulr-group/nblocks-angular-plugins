@@ -16,18 +16,18 @@
         <form #form="ngForm" (ngSubmit)="save(form)" (keyup)="handleKeyUp($event, form)">
 
           <ion-item lines="full">
-            <ion-label position="floating">{{'NBLOCKS.AUTH.FIRSTNAME'|translate}}*</ion-label>
-            <ion-input name="firstName" type="text" ngModel required></ion-input>
+            <ion-label position="floating">{{'NBLOCKS.AUTH.FIRSTNAME'|translate}}{{nBlocksLibService.config.onboarding.requiredFields.firstName ? '*' : ''}}</ion-label>
+            <ion-input name="firstName" type="text" ngModel [required]="nBlocksLibService.config.onboarding.requiredFields.firstName"></ion-input>
           </ion-item>
 
           <ion-item lines="full">
-            <ion-label position="floating">{{'NBLOCKS.AUTH.LASTNAME'|translate}}*</ion-label>
-            <ion-input name="lastName" type="text" ngModel required></ion-input>
+            <ion-label position="floating">{{'NBLOCKS.AUTH.LASTNAME'|translate}}{{nBlocksLibService.config.onboarding.requiredFields.lastName ? '*' : ''}}</ion-label>
+            <ion-input name="lastName" type="text" ngModel [required]="nBlocksLibService.config.onboarding.requiredFields.lastName"></ion-input>
           </ion-item>
 
           <ion-item lines="full">
-            <ion-label position="floating">{{'NBLOCKS.AUTH.PHONENUMBER'|translate}}</ion-label>
-            <ion-input name="phoneNumber" type="text" ngModel></ion-input>
+            <ion-label position="floating">{{'NBLOCKS.AUTH.PHONENUMBER'|translate}}{{nBlocksLibService.config.onboarding.requiredFields.phoneNumber ? '*' : ''}}</ion-label>
+            <ion-input name="phoneNumber" type="text" ngModel [required]="nBlocksLibService.config.onboarding.requiredFields.phoneNumber"></ion-input>
           </ion-item>
 
           <ion-row>

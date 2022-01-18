@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NavController } from '@ionic/angular';
+import { NBlocksLibService } from '../../../nblocks-lib.service';
 import { AuthService } from '../../auth.service';
 import { AuthTenantUserResponseDto } from '../../models/auth-tenant-user-response.dto';
 
@@ -21,6 +22,7 @@ export class ChooseUserPage implements OnInit {
     private readonly route: ActivatedRoute,
     private readonly navCtrl: NavController,
     private readonly authService: AuthService,
+    private readonly nBlocksLibService: NBlocksLibService
   ) {
     this.tenantUsers = [];
   }
@@ -74,17 +76,15 @@ export class ChooseUserPage implements OnInit {
       this.error = true;
     }
 
-    if (!selectedUser.onboarded) {
+    if (!selectedUser.onboarded && this.nBlocksLibService.config.onboarding.enabled) {
+      // Make user answer some personal information during an nblocks onboarding
       this.navCtrl.navigateRoot('auth/onboarding');
     } else {
       if (selectedUser.tenant.name) {
-        // Hard reload to let all queries that might have failed due to unauthorized retry
-        //window.location.href = "";
+        // Normal case, redirect to app root
         this.navCtrl.navigateRoot('');
       } else {
         // Have app onboarding take over for a new user and new tenant
-        // Hard reload to let all queries that might have failed due to unauthorized retry
-        //window.location.href = "/onboarding";
         this.navCtrl.navigateRoot('onboarding');
       } 
     }
