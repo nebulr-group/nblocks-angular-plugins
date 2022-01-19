@@ -2,19 +2,20 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { AuthService } from '../../auth.service';
+import { ToastService } from '../../../shared/toast.service';
 
 @Component({
   selector: 'social-login',
   templateUrl: './social-login.page.html'
 })
 export class SocialLoginPage implements OnInit {
-  public loading = false;
-  public param = {};
+  loading = false;
 
   constructor(
     private readonly navCtrl: NavController,
     private readonly route: ActivatedRoute,
-    private readonly authService: AuthService
+    private readonly authService: AuthService,
+    private readonly toastService: ToastService
   ) {}
 
   ngOnInit(): void {
@@ -24,18 +25,22 @@ export class SocialLoginPage implements OnInit {
 
   private async handleAuthorization(): Promise<void> {
     this.route.queryParams.subscribe(async (params) => {
-      const { failure, token } = params;
-
-      if (failure !== 'true') {
+      const { token, nblocksError, message: errorMessage } = params;
+      let path = 'auth/login';
+      if (token !== 'false') {
         try {
           await this.authService.storeAuthToken(token);
-          this.navCtrl.navigateForward('auth/choose-user');
+          path = 'auth/choose-user';
         } catch (error) {
-          console.error('Something went wrong upon session token fetch', error);
+          this.toastService.presentError(['AUTH.SOCIAL_LOGIN.SESSION_TOKEN_ERROR']);
+          console.error('AUTH.SOCIAL_LOGIN.SESSION_TOKEN_ERROR', error);
         }
+      } else {
+        console.log({ nblocksError, errorMessage });
+        this.toastService.presentErrorNoTranslation(errorMessage, 10000);
       }
 
-      this.navCtrl.navigateForward('auth/login');
+      this.navCtrl.navigateForward(path);
     });
   }
 }

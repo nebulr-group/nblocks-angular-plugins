@@ -51,6 +51,9 @@
 		  "passwordStrength_noLowercaseLetter": "Should contain lowercase letter",
 		  "passwordStrength_noNumber": "Should contain digit",
 		  "passwordStrength_noSpecialCharacter": "Should contain special character"
+		},
+		"SOCIAL_LOGIN": {
+			"SESSION_TOKEN_ERROR": "Something went wrong upon session token processing"
 		}
 	  },
 	  "USER": {
