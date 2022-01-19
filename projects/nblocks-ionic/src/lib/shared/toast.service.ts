@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ToastController, ToastButton } from '@ionic/angular';
+import { ToastController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { uniq } from 'lodash';
 
