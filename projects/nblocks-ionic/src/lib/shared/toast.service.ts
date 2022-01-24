@@ -28,13 +28,6 @@ export class ToastService {
   }
 
   /**
-  * Display message without translation with provided duration
-  */
-  async presentErrorNoTranslation(errorMessage: string, duration?: number): Promise<void> {
-    return this._presentToast(errorMessage, true, duration);
-  }
-
-  /**
    * 
    * @param translationKeys an array of translation keys. Will be prepend with TOAST_MESSAGE.
    * @returns 
@@ -47,10 +40,10 @@ export class ToastService {
     return this._presentToast(message, false);
   }
   
-  private async _presentToast(message: string, error: boolean, duration?: number): Promise<void> {
+  private async _presentToast(message: string, error: boolean): Promise<void> {
     const toast = await this.toastController.create({
       message,
-      duration: duration ? duration : this.DEFAULT_TOAST_DURATION,
+      duration: this.DEFAULT_TOAST_DURATION,
       cssClass: `ion-text-center ${error ? 'toast-error' : 'toast-info'}`,
       color: error ? 'warning' : 'dark',
       buttons: error ? [
