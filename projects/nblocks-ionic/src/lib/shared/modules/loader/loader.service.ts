@@ -2,7 +2,9 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { Loader } from './loader.model';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class LoaderService {
   private loader = new BehaviorSubject<Loader>({ status: false });
 
