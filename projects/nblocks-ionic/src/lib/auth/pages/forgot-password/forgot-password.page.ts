@@ -22,7 +22,7 @@ export class ForgotPasswordPage {
     this.loading = true;
     const { username } = form.value;
     await this.authService.forgotPassword(username);
-    this.toastService.presentMessage(['AUTH.RESET_PASSWORD_SENT']);
+    this.toastService.presentMessage(['RESET_PASSWORD_SENT']);
     this.loading = false;
     this.navCtrl.navigateRoot('auth/login');
   }

@@ -22,7 +22,7 @@ export class LogoutPage implements OnInit {
 
   private async handleLogout() {
     await this.authService.deauthenticate();
-    this.toastService.presentMessage(["AUTH.LOGGED_OUT"]);
+    this.toastService.presentMessage(["LOGGED_OUT"]);
     this.navCtrl.navigateRoot("auth/login");
   }
 }

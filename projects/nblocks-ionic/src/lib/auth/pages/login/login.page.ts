@@ -30,8 +30,21 @@ export class LoginPage implements OnInit {
     try {
       this.loading = true;
       this.error = false;
-      await this.authService.authenticate(username, password);
-      this.navCtrl.navigateForward('auth/choose-user');
+      const result = await this.authService.authenticate(username, password);
+      switch (result.mfaState) {
+        case 'DISABLED':
+          this.navCtrl.navigateForward('auth/choose-user');
+          break;
+
+        case 'REQUIRED':
+          this.navCtrl.navigateForward('auth/mfa/required');
+          break;
+
+        case 'SETUP':
+          this.navCtrl.navigateForward('auth/mfa/setup');
+          break;
+      }
+      
     } catch (error) {
       this.error = true;
     } finally {
