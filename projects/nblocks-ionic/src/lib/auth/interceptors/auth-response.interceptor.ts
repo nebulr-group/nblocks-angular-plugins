@@ -8,7 +8,7 @@ import {
 import { Injectable, Injector } from '@angular/core';
 import { Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
-import { Observable, of } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { NBlocksLibService } from '../../nblocks-lib.service';
 import { ToastService } from '../../shared/toast.service';
@@ -60,7 +60,7 @@ export class AuthResponseInterceptor implements HttpInterceptor {
       );
   }
 
-  private _handleError(error: HttpErrorResponse): Observable<any> {
+  private _handleError(error: HttpErrorResponse): Observable<never> {
     switch (error.status) {
       case 401:
         console.log("Caught 401 error", error);
@@ -72,7 +72,9 @@ export class AuthResponseInterceptor implements HttpInterceptor {
 
       case 403:
         console.log("Caught 403 error", error);
-        this._presentToast(["FORBIDDEN"], true);
+        if (!this.router.url.startsWith(this.authRoute)) {
+          this._presentToast(["FORBIDDEN"], true);
+        }
         break;
     
       default:
@@ -86,7 +88,7 @@ export class AuthResponseInterceptor implements HttpInterceptor {
         break;
     }
 
-    return of([]);
+    return throwError(error);
   }
 
   private _isGraphQLResponse(response: any): boolean {

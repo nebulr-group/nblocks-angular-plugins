@@ -18,7 +18,8 @@ import { AuthService } from '../../auth.service';
   styleUrls: ['./set-password.page.scss'],
 })
 export class SetPasswordPage implements OnInit {
-  public loading = false;
+  loading = false;
+  error = false;
   private token!: string;
 
   passwordForm:FormGroup;
@@ -54,10 +55,16 @@ export class SetPasswordPage implements OnInit {
     const password = form.get('password')?.value;
 
     this.loading = true;
-    await this.authService.resetPassword(this.token, password);
-    this.loading = false;
-    this.toastService.presentMessage(["PASSWORD_RESETTED"]);
-    this.navCtrl.navigateForward('auth/login');
+    this.error = false;
+    this.authService.resetPassword(this.token, password).subscribe(
+    res => {
+      this.loading = false;
+      this.toastService.presentMessage(["PASSWORD_RESETTED"]);
+      this.navCtrl.navigateForward('auth/login');
+    }, err => {
+      this.loading = false;
+      this.error = true;
+    });
   }
 
   public async handleKeyUp(e: KeyboardEvent, form: FormGroup): Promise<void> {

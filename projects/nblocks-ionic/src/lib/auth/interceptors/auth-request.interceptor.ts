@@ -6,9 +6,8 @@ import {
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { from, Observable, of } from 'rxjs';
+import { from, Observable, of, throwError } from 'rxjs';
 import { NavController } from '@ionic/angular';
-import { catchError } from 'rxjs/operators';
 import { AuthService } from '../auth.service';
 import { NBlocksLibService } from '../../nblocks-lib.service';
 
@@ -33,20 +32,19 @@ export class AuthRequestInterceptor implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler,
   ): Observable<HttpEvent<any>> {
-    return from(this.handle(req, next)).pipe(catchError((error) => this.handleError(error)));
+    return from(this.handle(req, next));
   }
 
   async handle(req: HttpRequest<any>, next: HttpHandler): Promise<any> {
     //FIXME just attach credentials to calls made to Nebulr APIs. Otherwise we expose credentials to other servers
-    const authToken = await this.authService.getAuthToken();
-    const tenantUserId = await this.authService.getTenantUserId();
+    const [authToken, mfaToken, tenantUserId] = await Promise.all([this.authService.getAuthToken(), this.authService.getMfaToken(), this.authService.getTenantUserId()]);
     const url = this.getUrlWithoutParams();
     if (req.body?.operationName)
       console.log(req.body.operationName, req.body.variables, new Date());
     if (authToken) {
       req = req.clone({
         setHeaders: {
-          'x-auth-token': authToken,
+          'x-auth-token': mfaToken ? `${authToken}_${mfaToken}` : authToken,
         },
       });
     } else {
@@ -88,6 +86,7 @@ export class AuthRequestInterceptor implements HttpInterceptor {
   }
 
   private handleError(error: any): Observable<any> {
-    return of([]);
+    console.log("Received request error", error);
+    return throwError(error);
   }
 }

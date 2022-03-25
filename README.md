@@ -8,6 +8,16 @@ https://nebulr-group.github.io/nblocks-docs
 
 This project gathers all Angular flavoured libraries for NBlocks. Please head over to each sub project README to get started.
 
+## Feature set
+* Authenticate
+    * Login
+    * Logout
+    * Social login
+    * MFA
+* Select workspace / tenant
+* Tenant views
+* User management
+
 ## NBlocks for Ionic Framework
 [Go to project](projects/nblocks-ionic)
 
@@ -25,7 +35,7 @@ All libraries will compiled to different directories under `dist/`.
 
 ### Test library locally with NPM link
 A library can be tested locally without publishing.
-1. Build library from root directory of this project, e.g. `npm build --watch` activate recompilation on source change.
+1. Build library from root directory of this project, e.g. `ng build --watch` activate recompilation on source change.
 2. Step into the compiled library output directory in `dist/name-of-lib`.
 3. Run `npm link` to have library linked into a global npm package folder. Observe the name of the output in which this library was saved as.
 4. Go to the root folder of the Angular project where you want to install this library into.

@@ -1,0 +1,43 @@
+<ion-progress-bar type="indeterminate" [hidden]="!loading"></ion-progress-bar>
+<ion-content class="ion-padding">
+  <ion-grid>
+    <ion-row class="ion-justify-content-center">
+      <ion-col class="ion-align-self-center">
+        <div class="ion-text-center">
+          <nblocks-logo></nblocks-logo>
+          <h2>
+            {{'NBLOCKS.AUTH.COMMIT_MFA'|translate}}
+          </h2>
+          <p class="ion-text-center">{{'NBLOCKS.AUTH.COMMIT_MFA_SUB'|translate}}</p>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12" size-sm="4" push-sm="4">
+        <form #form="ngForm" (ngSubmit)="submit(form)" (keyup)="handleKeyUp($event, form)">
+          <ion-item lines="full">
+            <ion-label position="floating">{{'NBLOCKS.AUTH.MFA_CODE'|translate}}</ion-label>
+            <ion-input name="mfaCode" type="password" ngModel required></ion-input>
+          </ion-item>
+          <ion-row>
+            <ion-col>
+              <div class="forgot-password ion-text-end">
+                <a [routerLink]="['/auth/mfa/reset']"
+                  class="small-text subtitle-2 ">{{'NBLOCKS.AUTH.RESET_MFA_LINK'|translate}}</a>
+              </div>
+              <p class="body-2 wrong-credentials" [hidden]="!error">{{'NBLOCKS.AUTH.WRONG_CREDENTIALS'|translate}}</p>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-button type="submit" class="small-text sign-in-button" [disabled]="form.invalid || loading"
+                [color]="error ? 'danger' : ''" expand="block">{{'NBLOCKS.AUTH.SIGN_IN_BUTTON'|translate}}</ion-button>
+            </ion-col>
+          </ion-row>
+        </form>
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+</ion-content>
+<nblocks-footer></nblocks-footer>

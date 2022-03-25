@@ -1,0 +1,54 @@
+<ion-progress-bar type="indeterminate" [hidden]="!loading"></ion-progress-bar>
+<ion-content class="ion-padding">
+  <ion-grid>
+    <ion-row class="ion-justify-content-center">
+      <ion-col class="ion-align-self-center">
+        <div class="ion-text-center">
+          <nblocks-logo></nblocks-logo>
+          <h2>
+            {{'NBLOCKS.AUTH.SETUP_MFA' |translate}}
+          </h2>
+          <p class="ion-text-center">{{'NBLOCKS.AUTH.SETUP_MFA_SUB_STEP_' + step |translate}}</p>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12" size-sm="4" push-sm="4">
+        <form *ngIf="step === 0" #form="ngForm" (ngSubmit)="submitPhoneNumber(form)" (keyup)="handleKeyUp($event, form)">
+          <ion-item lines="full">
+            <ion-label position="floating">{{'NBLOCKS.AUTH.PHONENUMBER'|translate}}</ion-label>
+            <ion-input name="phoneNumber" type="text" ngModel required></ion-input>
+          </ion-item>
+          <ion-row>
+            <ion-col>
+              <ion-button type="submit" class="small-text sign-in-button" [disabled]="form.invalid || loading"
+                [color]="error ? 'danger' : ''" expand="block">{{'NBLOCKS.AUTH.SUBMIT'|translate}}</ion-button>
+            </ion-col>
+          </ion-row>
+        </form>
+        <form *ngIf="step === 1" #form="ngForm" (ngSubmit)="submitMfaCode(form)" (keyup)="handleKeyUp($event, form)">
+            <ion-item lines="full">
+                <ion-label position="floating">{{'NBLOCKS.AUTH.MFA_CODE'|translate}}</ion-label>
+                <ion-input name="mfaCode" type="password" ngModel required></ion-input>
+            </ion-item>
+            <ion-row>
+                <ion-col>
+                <ion-button type="submit" class="small-text sign-in-button" [disabled]="form.invalid || loading"
+                    [color]="error ? 'danger' : ''" expand="block">{{'NBLOCKS.AUTH.SUBMIT'|translate}}</ion-button>
+                </ion-col>
+            </ion-row>
+        </form>
+        <div *ngIf="step === 2">
+            <h1 class="recover-code">{{recoverCode}}</h1>
+            <ion-row>
+                <ion-col>
+                    <ion-button (click)="nextStep()" class="small-text sign-in-button" expand="block">{{'NBLOCKS.AUTH.SIGN_IN_BUTTON'|translate}}</ion-button>
+                </ion-col>
+            </ion-row>
+        </div>
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+</ion-content>
+<nblocks-footer></nblocks-footer>

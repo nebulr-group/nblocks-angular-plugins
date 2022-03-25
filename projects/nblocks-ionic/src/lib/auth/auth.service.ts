@@ -1,7 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Storage } from '@capacitor/storage';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { NBlocksLibService } from '../nblocks-lib.service';
 import { AuthTenantUserResponseDto } from './models/auth-tenant-user-response.dto';
@@ -12,6 +12,7 @@ import { CurrentUser } from './models/current-user.model';
 })
 export class AuthService {
   private readonly TOKEN_STORAGE_KEY = "x-auth-token";
+  private readonly MFA_TOKEN_STORAGE_KEY = "x-mfa-token";
   private readonly USER_STORAGE_KEY = "x-tenant-user-id";
   private readonly ENDPOINTS = {
     authenticate: "/auth-proxy/authenticate",
@@ -20,7 +21,11 @@ export class AuthService {
     currentUser: "/auth/currentUser",
     password: "/auth-proxy/password",
     user: "/auth-proxy/user",
-    socialLogin: "/social-login"
+    socialLogin: "/social-login",
+    commitMfaCode: "/auth-proxy/commitMfaCode",
+    startMfaUserSetup: "/auth-proxy/startMfaUserSetup",
+    finishMfaUserSetup: "/auth-proxy/finishMfaUserSetup",
+    resetUserMfaSetup: "/auth-proxy/resetUserMfaSetup"
   }
 
   private BASE_URL: string;
@@ -53,9 +58,48 @@ export class AuthService {
     await Storage.set({key: this.TOKEN_STORAGE_KEY, value: token});
   }
 
-  async authenticate(username:string, password:string): Promise<void> {
-    const result:any = await this.httpClient.post(`${this.BASE_URL}${this.ENDPOINTS.authenticate}`, {username, password}).toPromise();
-    await this.storeAuthToken(result.token);
+  async storeMfaToken(token: string): Promise<void> {
+    await Storage.set({key: this.MFA_TOKEN_STORAGE_KEY, value: token});
+  }
+
+  async getAuthToken(): Promise<string | null> {
+    return (await Storage.get({ key: this.TOKEN_STORAGE_KEY })).value;
+  }
+
+  async getMfaToken(): Promise<string | null> {
+    return (await Storage.get({ key: this.MFA_TOKEN_STORAGE_KEY })).value;
+  }
+
+  async authenticate(username:string, password:string): Promise<{mfaState: 'DISABLED' | 'REQUIRED' | 'SETUP'}> {
+    const {token, mfaState} = await this.httpClient.post<{token: string, mfaState: 'DISABLED' | 'REQUIRED' | 'SETUP'}>(`${this.BASE_URL}${this.ENDPOINTS.authenticate}`, {username, password}).toPromise();
+    if (!token)
+      throw new Error("Wrong credentials");
+    await this.storeAuthToken(token);
+    return {mfaState};
+  }
+
+  async commitMfaCode(mfaCode:string): Promise<void> {
+    const result = await this.httpClient.post<{mfaToken: string}>(`${this.BASE_URL}${this.ENDPOINTS.commitMfaCode}`, {mfaCode}).toPromise();
+    await this.storeMfaToken(result.mfaToken);
+  }
+
+  async startMfaUserSetup(phoneNumber:string): Promise<void> {
+    await this.httpClient.post(`${this.BASE_URL}${this.ENDPOINTS.startMfaUserSetup}`, {phoneNumber}).toPromise();
+  }
+
+  /**
+   * Finish setting up MFA for the user and the user is hereby authenticated with MFA aswell.
+   * @param mfaCode 
+   * @returns The backup code to be saved for future reference
+   */
+  async finishMfaUserSetup(mfaCode:string): Promise<string> {
+    const result = await this.httpClient.post<{mfaToken: string, backupCode: string}>(`${this.BASE_URL}${this.ENDPOINTS.finishMfaUserSetup}`, {mfaCode}).toPromise();
+    await this.storeMfaToken(result.mfaToken);
+    return result.backupCode;
+  }
+
+  async resetUserMfaSetup(backupCode:string): Promise<void> {
+    await this.httpClient.post(`${this.BASE_URL}${this.ENDPOINTS.resetUserMfaSetup}`, {backupCode}).toPromise();
   }
 
   async handleSocialLogin(provider: string): Promise<void> {
@@ -64,10 +108,6 @@ export class AuthService {
 
   async loadTenantUsers():Promise<any> {
     return this.httpClient.get(`${this.BASE_URL}${this.ENDPOINTS.tenantUsers}`).toPromise();
-  }
-
-  async getAuthToken(): Promise<string | null> {
-    return (await Storage.get({ key: this.TOKEN_STORAGE_KEY })).value;
   }
 
   async getTenantUserId(): Promise<string | null> {
@@ -89,8 +129,8 @@ export class AuthService {
     await this.httpClient.post(`${this.BASE_URL}${this.ENDPOINTS.password}`, {username}).toPromise();
   }
 
-  async resetPassword(token:string, password:string): Promise<void> {
-    await this.httpClient.put(`${this.BASE_URL}${this.ENDPOINTS.password}`, {token, password}).toPromise();
+  resetPassword(token:string, password:string): Observable<any> {
+    return this.httpClient.put(`${this.BASE_URL}${this.ENDPOINTS.password}`, {token, password});
   }
 
   async updateUserInfo(
@@ -115,6 +155,7 @@ export class AuthService {
   async clearAuthStorage(): Promise<void> {
     await Promise.all([
       Storage.remove({ key: this.TOKEN_STORAGE_KEY }),
+      Storage.remove({ key: this.MFA_TOKEN_STORAGE_KEY }),
       Storage.remove({ key: this.USER_STORAGE_KEY }),
     ]);
   }
