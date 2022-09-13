@@ -50,7 +50,7 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
           platforms: linux/amd64
-      # Run container using the image aboce and run the publish script
+      # Run container using the image above and run the publish script
       - name: Step 4 - Publish package to the npm
         run: |
           docker run -e NPM_TOKEN=${{ secrets.NPM_TOKEN }} --rm ${{ github.run_id }} /bin/bash -c "sh ./publish.sh; npm run publish-ionic"
