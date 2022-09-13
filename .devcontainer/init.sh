@@ -2,11 +2,14 @@
 ## Usage
 ## ./init_local.sh WORKSPACE_FOLDER_PATH
 PWD=$(dirname $0)
-source $PWD/secrets.env
+source $PWD/secrets.env.default
 
-# microsoft docker container contains no vim but vim.tiny
+echo "Installing vim"
+apt-get update
+apt-get -y install vim
+# Node docker container contains no vim
 echo "Configuring GIT"
-git config --global core.editor "vim.tiny"
+git config --global core.editor "vim"
 git config --global user.email $GIT_EMAIL
 git config --global user.name $GIT_NAME
 
