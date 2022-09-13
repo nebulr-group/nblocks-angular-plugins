@@ -22,9 +22,9 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: false
-          tags: nblocks-angular-client:latest
+          tags: nblocks-angular-plugin:latest
           target: test
-          outputs: type=docker,dest=/tmp/nblocks-ts-client.tar
+          outputs: type=docker,dest=/tmp/nblocks-angular-plugin.tar
           cache-from: type=gha
           cache-to: type=gha,mode=max
           platforms: linux/amd64
