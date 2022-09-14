@@ -2,11 +2,11 @@
 ## Usage
 ## ./init_local.sh WORKSPACE_FOLDER_PATH
 PWD=$(dirname $0)
-source $PWD/secrets.env.default
+source $PWD/secrets.env
 
 echo "Installing vim"
 apt-get update
-apt-get -y install vim
+apt-get -y install less vim curl jq
 # Node docker container contains no vim
 echo "Configuring GIT"
 git config --global core.editor "vim"
