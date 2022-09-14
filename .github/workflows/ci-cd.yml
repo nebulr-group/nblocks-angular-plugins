@@ -30,6 +30,10 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
           platforms: linux/amd64
+  # Test Phase will be integrated in future releases
+  # test:
+  #   test: [build]
+  #   ...
   deploy:
     needs: [build]
     if: ${{ github.ref_name == 'master' && github.event_name == 'push' }}
