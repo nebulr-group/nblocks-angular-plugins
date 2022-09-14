@@ -35,6 +35,8 @@
     "target=${containerWorkspaceFolder}/dist,type=volume"
     // "source=serverless,target=${containerWorkspaceFolder}/.serverless,type=volume",  Docker complains that resource is busy or locked when running sls deploy
   ],
+  "workspaceMount": "source=${localWorkspaceFolder},target=/app,type=bind",
+  "workspaceFolder": "/app",
   "appPort": ["8001:8100"],
   "postCreateCommand": "bash .devcontainer/init.sh ${containerWorkspaceFolder}"
   // Use 'forwardPorts' to make a list of ports inside the container available locally.
