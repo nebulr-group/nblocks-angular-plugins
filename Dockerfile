@@ -40,7 +40,7 @@ RUN npm run build
 FROM base as prod
 RUN npm install -g @ionic/cli @angular/cli@12
 # Installing prod dependencies
-RUN npm install --production; cd "./project/nblocks-ionic"; npm install
+RUN npm install --production; cd "./project/nblocks-ionic"; npm install --production
 # Copy rest of the projects source code to container env
 COPY . .
 # Run build with installed dep
