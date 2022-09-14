@@ -3,7 +3,7 @@
 # Supports ARM + x86-64
 # 'as base' allows us to refer to this build stage in other build stages
 FROM node:14-buster as base
-
+SHELL ["/bin/bash", "-c"]
 
 
 # Set the root working dir inside container
@@ -12,7 +12,9 @@ WORKDIR "/app"
 # Set layer caching for faster builds
 # Runs only on package.json and package-lock.js change else uses cached Docker layers
 COPY ["package.json", "package-lock.json", "./"]
+# Creates dir projects and sub dir nblocks-ionic]
 RUN mkdir -p projects/nblocks-ionic
+# Copy submodule package jsons for better caching
 COPY ["./projects/nblocks-ionic/package.json", "./projects/nblocks-ionic/package-lock.json", "./projects/nblocks-ionic/"]
 
 # Refering to base, and adding new build stage label 'test'
