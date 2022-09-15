@@ -4,9 +4,12 @@
 PWD=$(dirname $0)
 source $PWD/secrets.env
 
-# microsoft docker container contains no vim but vim.tiny
+echo "Installing vim"
+apt-get update
+apt-get -y install less vim curl jq
+# Node docker container contains no vim
 echo "Configuring GIT"
-git config --global core.editor "vim.tiny"
+git config --global core.editor "vim"
 git config --global user.email $GIT_EMAIL
 git config --global user.name $GIT_NAME
 
