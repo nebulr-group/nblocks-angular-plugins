@@ -1,10 +1,11 @@
-mutation UpdateTenant($name: String!, $locale: String!) {
-  updateTenant(name: $name, locale: $locale) {
+mutation UpdateTenant($tenant: TenantInput!) {
+  updateTenant(tenant: $tenant) {
     id
     name
     locale
     logo
     plan
+    mfa
     createdAt
   }
 }

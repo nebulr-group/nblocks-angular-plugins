@@ -1,0 +1,33 @@
+<ion-progress-bar type="indeterminate" [hidden]="!loading"></ion-progress-bar>
+<ion-content class="ion-padding">
+  <ion-grid>
+    <ion-row>
+      <ion-col> </ion-col>
+      <ion-col>
+        <div [hidden]="tenantResult" id="container">
+          <h2>Signup with a user</h2>
+          <p>
+            This user will be able to login to your app. Use your own email
+            address.
+          </p>
+          <ion-input
+            type="email"
+            placeholder="your@email.com"
+            (ionChange)="setEmail($event)"
+          ></ion-input>
+          <ion-button [disabled]="!email" (click)="createTenant()"
+            >Create</ion-button
+          >
+        </div>
+        <div [hidden]="!tenantResult" id="container">
+          <h2>User created!</h2>
+          <p>
+            An onboarding email was sent to {{email}}. Go to your inbox and
+            click the link.
+          </p>
+        </div>
+      </ion-col>
+      <ion-col></ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

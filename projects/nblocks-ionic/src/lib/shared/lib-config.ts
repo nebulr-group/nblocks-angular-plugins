@@ -50,13 +50,13 @@ export interface LibConfig {
 export const defaultLibConfig = (config: Partial<LibConfig>): LibConfig => {
   return {
     apiHost: "http://localhost:3000",
-    logoPath: "http://nblocks.dev/wp-content/uploads/2021/12/nblocks-testlogo.png",
+    logoPath: "'https://nebulr-group.github.io/nblocks-docs/img/logo.png',",
     privacyPolicyUrl: "https://www.myapp.com/privacy",
     graphqlPath: "/graphql",
-    openRoutes: ["/"],
+    openRoutes: ["/", '/setup/start', '/setup/signup'],
     roles: ["OWNER", "ADMIN", "MANAGER", "VIEWER"],
     languages: ['en','sv'],
-    passwordComplexity: false,
+    passwordComplexity: false, // Sensible default (dev)
     onboarding: {
       enabled: true,
       requiredFields: {

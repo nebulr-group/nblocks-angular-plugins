@@ -1,0 +1,10 @@
+query GetAppAnonymous {
+  getAppAnonymous {
+    name
+    logo
+    privacyPolicyUrl
+    termsOfServiceUrl
+    uiUrl
+    websiteUrl
+  }
+}

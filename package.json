@@ -7,6 +7,7 @@
     "build": "ng build",
     "prebuild": "rimraf dist",
     "publish-ionic": "npm run build && cd dist/nblocks-ionic && npm publish",
+    "publish-ionic-beta": "npm run build && cd dist/nblocks-ionic && npm publish --access public --tag beta",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
