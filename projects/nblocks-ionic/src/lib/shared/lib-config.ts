@@ -50,7 +50,7 @@ export interface LibConfig {
 export const defaultLibConfig = (config: Partial<LibConfig>): LibConfig => {
   return {
     apiHost: "http://localhost:3000",
-    logoPath: "'https://nebulr-group.github.io/nblocks-docs/img/logo.png',",
+    logoPath: 'https://nebulr-group.github.io/nblocks-docs/img/logo.png',
     privacyPolicyUrl: "https://www.myapp.com/privacy",
     graphqlPath: "/graphql",
     openRoutes: ["/", '/setup/start', '/setup/signup'],
