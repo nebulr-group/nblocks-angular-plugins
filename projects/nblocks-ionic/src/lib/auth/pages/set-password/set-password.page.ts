@@ -36,9 +36,10 @@ export class SetPasswordPage implements OnInit {
     if (this.nblocksLibService.config.passwordComplexity || this.nblocksLibService.config.passwordComplexityRegex) {
       if (this.nblocksLibService.config.passwordComplexityRegex) {
         this.passwordForm = this.formBuilder.group({
-          password: ['', [Validators.required, this.passwordCustomStrengthValidator]],
+          password: ['', [Validators.required, this.createPasswordCustomStrengthValidator(this.nblocksLibService.config.passwordComplexityRegex)]],
           password_repeat: ['', [Validators.required, this.samePasswordValidator]],
         });
+        this.passwordStrengthKeys.push('passwordStrength_invalidCustomStrength');
       } else {
         this.passwordForm = this.formBuilder.group({
           password: ['', [Validators.required, this.passwordStandardStrengthValidator]],
@@ -87,30 +88,32 @@ export class SetPasswordPage implements OnInit {
     'passwordStrength_noLowercaseLetter',
     'passwordStrength_noNumber',
     'passwordStrength_noSpecialCharacter',
-    'passwordStrength_invalidCustomStrength',
   ];
 
   // StrengthValidator using custom regex
-  passwordCustomStrengthValidator(control: AbstractControl): ValidationErrors | null {
-    const value: string = control.value || '';
-
-    if (!value) {
+  createPasswordCustomStrengthValidator(regex: RegExp): unknown {
+    const validator:ValidationErrors | null = (control: AbstractControl) =>  {
+      const value: string = control.value || '';
+  
+      if (!value) {
+        return null;
+      }
+  
+      const errors: ValidationErrors = {};
+  
+      if (regex.test(value) === false) {
+        errors.passwordStrength = true;
+        errors.passwordStrength_invalidCustomStrength = true;
+      }
+  
+      if (errors.passwordStrength) {
+        return errors;
+      }
+  
       return null;
-    }
+    };
 
-    const errors: ValidationErrors = {};
-
-    const regex = this.nblocksLibService.config.passwordComplexityRegex!;
-    if (regex.test(value) === false) {
-      errors.passwordStrength = true;
-      errors.passwordStrength_invalidCustomStrength = true;
-    }
-
-    if (errors.passwordStrength) {
-      return errors;
-    }
-
-    return null;
+    return validator;
   }
 
   // Built in ISO 27001 strength

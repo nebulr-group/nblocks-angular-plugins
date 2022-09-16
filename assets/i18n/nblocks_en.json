@@ -70,7 +70,7 @@
 		  "passwordStrength_noLowercaseLetter": "Should contain lowercase letter",
 		  "passwordStrength_noNumber": "Should contain digit",
 		  "passwordStrength_noSpecialCharacter": "Should contain special character",
-		  "passwordStrength_invalidCustomStrength": "The password don't meet the requirements. It must be stronger!"
+		  "passwordStrength_invalidCustomStrength": "The password is hard to guess!"
 		}
 	  },
 	  "USER": {

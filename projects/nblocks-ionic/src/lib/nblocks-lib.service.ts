@@ -1,5 +1,6 @@
 import { Inject, Injectable } from '@angular/core';
 import { LibConfig, LibConfigService } from './shared/lib-config';
+import {NblocksError} from './shared/errors/NblocksError'
 
 @Injectable({
   providedIn: 'root',
