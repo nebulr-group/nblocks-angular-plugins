@@ -22,8 +22,11 @@ export interface LibConfig {
   /** Available languages that the user can set for the workspace. Can just be 'en' or 'sv' at the moment */
   languages: string[];
 
-  /** Enable password complexity according to ISO27001 */
+  /** Enable password complexity according to ISO27001, disabled be default on localhost */
   passwordComplexity: boolean;
+
+  /** Bring-Your-Own password challenge, overriding the ISO27001 standard*/
+  passwordComplexityRegex?: RegExp;
 
   /** Ask for personal information after first time user logs in. Can be setup to require specific fields */
   onboarding: {

@@ -33,16 +33,24 @@ export class SetPasswordPage implements OnInit {
     private readonly nblocksLibService: NBlocksLibService
   ) {
 
-    if (this.nblocksLibService.config.passwordComplexity)
-      this.passwordForm = this.formBuilder.group({
-        password: ['', [Validators.required, this.passwordStrengthValidator]],
-        password_repeat: ['', [Validators.required, this.samePasswordValidator]],
-      });
-    else
+    if (this.nblocksLibService.config.passwordComplexity || this.nblocksLibService.config.passwordComplexityRegex) {
+      if (this.nblocksLibService.config.passwordComplexityRegex) {
+        this.passwordForm = this.formBuilder.group({
+          password: ['', [Validators.required, this.passwordCustomStrengthValidator]],
+          password_repeat: ['', [Validators.required, this.samePasswordValidator]],
+        });
+      } else {
+        this.passwordForm = this.formBuilder.group({
+          password: ['', [Validators.required, this.passwordStandardStrengthValidator]],
+          password_repeat: ['', [Validators.required, this.samePasswordValidator]],
+        });
+      }
+    } else {
       this.passwordForm = this.formBuilder.group({
         password: ['', [Validators.required]],
         password_repeat: ['', [Validators.required, this.samePasswordValidator]],
       });
+    }
   }
 
   ngOnInit(): void {
@@ -79,8 +87,11 @@ export class SetPasswordPage implements OnInit {
     'passwordStrength_noLowercaseLetter',
     'passwordStrength_noNumber',
     'passwordStrength_noSpecialCharacter',
+    'passwordStrength_invalidCustomStrength',
   ];
-  passwordStrengthValidator(control: AbstractControl): ValidationErrors | null {
+
+  // StrengthValidator using custom regex
+  passwordCustomStrengthValidator(control: AbstractControl): ValidationErrors | null {
     const value: string = control.value || '';
 
     if (!value) {
@@ -89,6 +100,30 @@ export class SetPasswordPage implements OnInit {
 
     const errors: ValidationErrors = {};
 
+    const regex = this.nblocksLibService.config.passwordComplexityRegex!;
+    if (regex.test(value) === false) {
+      errors.passwordStrength = true;
+      errors.passwordStrength_invalidCustomStrength = true;
+    }
+
+    if (errors.passwordStrength) {
+      return errors;
+    }
+
+    return null;
+  }
+
+  // Built in ISO 27001 strength
+  passwordStandardStrengthValidator(control: AbstractControl): ValidationErrors | null {
+    const value: string = control.value || '';
+
+    if (!value) {
+      return null;
+    }
+
+    const errors: ValidationErrors = {};
+
+    
     if (value.length < 10) {
       errors.passwordStrength = true;
       errors.passwordStrength_minLength = true;
