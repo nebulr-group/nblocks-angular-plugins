@@ -5,11 +5,4 @@
 
 # npm config set @nebulrgroup:registry https://gitlab.com/api/v4/projects/23536445/packages/npm/
 # npm config set '//gitlab.com/api/v4/projects/23536445/packages/npm/:_authToken' $GITLAB_NPM_REPOSITORY_TOKEN
-
-cd projects/nblocks-ionic
-sudo npm install
-
-cd ../..
-sudo npm install
-
 echo "Done initializing"
