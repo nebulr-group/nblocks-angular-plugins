@@ -6,6 +6,13 @@ import { LibConfig, LibConfigService } from './shared/lib-config';
 })
 export class NBlocksLibService {
   constructor(@Inject(LibConfigService) readonly config: LibConfig) {
-    //console.log('Loaded config: ', config, this.config);
+    // Check variables for faulty user input
+    if (config.passwordComplexityRegex) {
+      try {
+        new RegExp(config.passwordComplexityRegex);
+      } catch(e) {
+          throw new NblocksError(`The provided Regex for \'passwordComplexityRegex\' is not a valid expression. Got ${config.passwordComplexityRegex}`);
+      }
+    }
   }
 }
