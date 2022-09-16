@@ -23,6 +23,7 @@ export class SetPasswordPage implements OnInit {
   private token!: string;
 
   passwordForm:FormGroup;
+  passwordStrengthKeys:string[] = [];
 
   constructor(
     private readonly route: ActivatedRoute,
@@ -45,6 +46,13 @@ export class SetPasswordPage implements OnInit {
           password: ['', [Validators.required, this.passwordStandardStrengthValidator]],
           password_repeat: ['', [Validators.required, this.samePasswordValidator]],
         });
+        this.passwordStrengthKeys.push(
+          'passwordStrength_minLength',
+          'passwordStrength_noUppercaseLetter',
+          'passwordStrength_noLowercaseLetter',
+          'passwordStrength_noNumber',
+          'passwordStrength_noSpecialCharacter'
+          )
       }
     } else {
       this.passwordForm = this.formBuilder.group({
@@ -55,7 +63,7 @@ export class SetPasswordPage implements OnInit {
   }
 
   ngOnInit(): void {
-    this.route.params.subscribe((params) => {
+    this.route.params.subscribe((params: any) => {
       this.token = params.token;
     });
   }
@@ -81,14 +89,6 @@ export class SetPasswordPage implements OnInit {
       this.resetPassword(form);
     }
   }
-
-  passwordStrengthKeys = [
-    'passwordStrength_minLength',
-    'passwordStrength_noUppercaseLetter',
-    'passwordStrength_noLowercaseLetter',
-    'passwordStrength_noNumber',
-    'passwordStrength_noSpecialCharacter',
-  ];
 
   // StrengthValidator using custom regex
   createPasswordCustomStrengthValidator(regex: RegExp): unknown {
