@@ -22,8 +22,11 @@ export interface LibConfig {
   /** Available languages that the user can set for the workspace. Can just be 'en' or 'sv' at the moment */
   languages: string[];
 
-  /** Enable password complexity according to ISO27001 */
+  /** Enable password complexity according to ISO27001, disabled be default on localhost */
   passwordComplexity: boolean;
+
+  /** Bring-Your-Own password challenge, overriding the ISO27001 standard*/
+  passwordComplexityRegex?: RegExp;
 
   /** Ask for personal information after first time user logs in. Can be setup to require specific fields */
   onboarding: {
@@ -50,13 +53,13 @@ export interface LibConfig {
 export const defaultLibConfig = (config: Partial<LibConfig>): LibConfig => {
   return {
     apiHost: "http://localhost:3000",
-    logoPath: "http://nblocks.dev/wp-content/uploads/2021/12/nblocks-testlogo.png",
+    logoPath: 'https://nebulr-group.github.io/nblocks-docs/img/logo.png',
     privacyPolicyUrl: "https://www.myapp.com/privacy",
     graphqlPath: "/graphql",
-    openRoutes: ["/"],
+    openRoutes: ["/", '/setup/start', '/setup/signup'],
     roles: ["OWNER", "ADMIN", "MANAGER", "VIEWER"],
     languages: ['en','sv'],
-    passwordComplexity: false,
+    passwordComplexity: false, // Sensible default (dev)
     onboarding: {
       enabled: true,
       requiredFields: {

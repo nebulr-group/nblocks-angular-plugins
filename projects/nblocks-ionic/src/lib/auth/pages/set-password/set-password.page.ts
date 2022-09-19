@@ -23,6 +23,7 @@ export class SetPasswordPage implements OnInit {
   private token!: string;
 
   passwordForm:FormGroup;
+  passwordStrengthKeys:string[] = [];
 
   constructor(
     private readonly route: ActivatedRoute,
@@ -33,20 +34,36 @@ export class SetPasswordPage implements OnInit {
     private readonly nblocksLibService: NBlocksLibService
   ) {
 
-    if (this.nblocksLibService.config.passwordComplexity)
-      this.passwordForm = this.formBuilder.group({
-        password: ['', [Validators.required, this.passwordStrengthValidator]],
-        password_repeat: ['', [Validators.required, this.samePasswordValidator]],
-      });
-    else
+    if (this.nblocksLibService.config.passwordComplexity || this.nblocksLibService.config.passwordComplexityRegex) {
+      if (this.nblocksLibService.config.passwordComplexityRegex) {
+        this.passwordForm = this.formBuilder.group({
+          password: ['', [Validators.required, this.createPasswordCustomStrengthValidator(this.nblocksLibService.config.passwordComplexityRegex)]],
+          password_repeat: ['', [Validators.required, this.samePasswordValidator]],
+        });
+        this.passwordStrengthKeys.push('passwordStrength_invalidCustomStrength');
+      } else {
+        this.passwordForm = this.formBuilder.group({
+          password: ['', [Validators.required, this.passwordStandardStrengthValidator]],
+          password_repeat: ['', [Validators.required, this.samePasswordValidator]],
+        });
+        this.passwordStrengthKeys.push(
+          'passwordStrength_minLength',
+          'passwordStrength_noUppercaseLetter',
+          'passwordStrength_noLowercaseLetter',
+          'passwordStrength_noNumber',
+          'passwordStrength_noSpecialCharacter'
+          )
+      }
+    } else {
       this.passwordForm = this.formBuilder.group({
         password: ['', [Validators.required]],
         password_repeat: ['', [Validators.required, this.samePasswordValidator]],
       });
+    }
   }
 
   ngOnInit(): void {
-    this.route.params.subscribe((params) => {
+    this.route.params.subscribe((params: any) => {
       this.token = params.token;
     });
   }
@@ -73,14 +90,34 @@ export class SetPasswordPage implements OnInit {
     }
   }
 
-  passwordStrengthKeys = [
-    'passwordStrength_minLength',
-    'passwordStrength_noUppercaseLetter',
-    'passwordStrength_noLowercaseLetter',
-    'passwordStrength_noNumber',
-    'passwordStrength_noSpecialCharacter',
-  ];
-  passwordStrengthValidator(control: AbstractControl): ValidationErrors | null {
+  // StrengthValidator using custom regex
+  createPasswordCustomStrengthValidator(regex: RegExp): unknown {
+    const validator:ValidationErrors | null = (control: AbstractControl) =>  {
+      const value: string = control.value || '';
+  
+      if (!value) {
+        return null;
+      }
+  
+      const errors: ValidationErrors = {};
+  
+      if (regex.test(value) === false) {
+        errors.passwordStrength = true;
+        errors.passwordStrength_invalidCustomStrength = true;
+      }
+  
+      if (errors.passwordStrength) {
+        return errors;
+      }
+  
+      return null;
+    };
+
+    return validator;
+  }
+
+  // Built in ISO 27001 strength
+  passwordStandardStrengthValidator(control: AbstractControl): ValidationErrors | null {
     const value: string = control.value || '';
 
     if (!value) {
@@ -89,6 +126,7 @@ export class SetPasswordPage implements OnInit {
 
     const errors: ValidationErrors = {};
 
+    
     if (value.length < 10) {
       errors.passwordStrength = true;
       errors.passwordStrength_minLength = true;

@@ -13,18 +13,40 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
-  /** A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format. */
-  DateTime: any;
+};
+
+export type App = {
+  __typename?: 'App';
+  logo?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  privacyPolicyUrl?: Maybe<Scalars['String']>;
+  termsOfServiceUrl?: Maybe<Scalars['String']>;
+  uiUrl?: Maybe<Scalars['String']>;
+  websiteUrl?: Maybe<Scalars['String']>;
+};
+
+export type CreateTenantInput = {
+  email: Scalars['String'];
+  logo?: InputMaybe<Scalars['String']>;
+  name?: InputMaybe<Scalars['String']>;
+  plan: Scalars['String'];
 };
 
 export type Mutation = {
   __typename?: 'Mutation';
+  createTenantAnonymous: Tenant;
+  /** This will create a new user for a tenant. */
   createUsers: Array<User>;
   deleteUser: Scalars['Boolean'];
   sendPasswordResetLink: Scalars['Boolean'];
-  testInsert: NebulrDemo;
   updateTenant: Tenant;
+  /** Update the user. You can change role, teams and also enable or disable the user from logging in. */
   updateUser: User;
+};
+
+
+export type MutationCreateTenantAnonymousArgs = {
+  tenant: CreateTenantInput;
 };
 
 
@@ -44,8 +66,7 @@ export type MutationSendPasswordResetLinkArgs = {
 
 
 export type MutationUpdateTenantArgs = {
-  locale: Scalars['String'];
-  name: Scalars['String'];
+  tenant: TenantInput;
 };
 
 
@@ -53,34 +74,30 @@ export type MutationUpdateUserArgs = {
   user: UserInput;
 };
 
-export type NebulrDemo = {
-  __typename?: 'NebulrDemo';
-  id: Scalars['ID'];
-  /** A word is a composition of letters, nothing more... */
-  word: Scalars['String'];
-};
-
-export type NebulrDemoInput = {
-  id: Scalars['ID'];
-  /** A word is a composition of letters, nothing more... */
-  word: Scalars['String'];
-};
-
 export type Query = {
   __typename?: 'Query';
+  /** Gets useful App configs for the UI to consume */
+  getAppAnonymous: App;
+  /** Obtain an short lived session url to redirect or present the user its Stripe subscription panel for updating payment or subscription data. */
   getCustomerPortal: Scalars['String'];
+  /** Gets a single tenant */
   getTenant: Tenant;
   getTenantAnonymous: TenantAnonymous;
-  list: Array<NebulrDemo>;
+  /** Lists all tenants */
+  listTenants: Array<Tenant>;
+  /** List all available user roles that the current user can assign others */
+  listUserRoles: Array<Scalars['String']>;
+  /** List all users in this tenant. */
   listUsers: Array<User>;
 };
 
 export type Tenant = {
   __typename?: 'Tenant';
-  createdAt?: Maybe<Scalars['DateTime']>;
+  createdAt?: Maybe<Scalars['String']>;
   id: Scalars['String'];
   locale?: Maybe<Scalars['String']>;
   logo: Scalars['String'];
+  mfa?: Maybe<Scalars['Boolean']>;
   name: Scalars['String'];
   plan?: Maybe<Scalars['String']>;
 };
@@ -89,15 +106,22 @@ export type TenantAnonymous = {
   __typename?: 'TenantAnonymous';
   id: Scalars['String'];
   locale?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+};
+
+export type TenantInput = {
+  locale?: InputMaybe<Scalars['String']>;
+  mfa?: InputMaybe<Scalars['Boolean']>;
+  name?: InputMaybe<Scalars['String']>;
 };
 
 export type User = {
   __typename?: 'User';
-  createdAt?: Maybe<Scalars['DateTime']>;
+  createdAt?: Maybe<Scalars['String']>;
   email?: Maybe<Scalars['String']>;
   enabled?: Maybe<Scalars['Boolean']>;
   fullName?: Maybe<Scalars['String']>;
-  id?: Maybe<Scalars['String']>;
+  id: Scalars['String'];
   onboarded?: Maybe<Scalars['Boolean']>;
   role?: Maybe<Scalars['String']>;
   teams?: Maybe<Array<Scalars['String']>>;
@@ -110,25 +134,36 @@ export type UserInput = {
   role?: InputMaybe<Scalars['String']>;
 };
 
-export type GetTenantQueryVariables = Exact<{ [key: string]: never; }>;
+export type GetAppAnonymousQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetTenantQuery = { __typename?: 'Query', getTenant: { __typename?: 'Tenant', id: string, name: string, locale?: string | null | undefined, logo: string, plan?: string | null | undefined, createdAt?: any | null | undefined } };
+export type GetAppAnonymousQuery = { __typename?: 'Query', getAppAnonymous: { __typename?: 'App', name?: string | null | undefined, logo?: string | null | undefined, privacyPolicyUrl?: string | null | undefined, termsOfServiceUrl?: string | null | undefined, uiUrl?: string | null | undefined, websiteUrl?: string | null | undefined } };
 
-export type UpdateTenantMutationVariables = Exact<{
-  name: Scalars['String'];
-  locale: Scalars['String'];
+export type CreateTenantAnonymousMutationVariables = Exact<{
+  tenant: CreateTenantInput;
 }>;
 
 
-export type UpdateTenantMutation = { __typename?: 'Mutation', updateTenant: { __typename?: 'Tenant', id: string, name: string, locale?: string | null | undefined, logo: string, plan?: string | null | undefined, createdAt?: any | null | undefined } };
+export type CreateTenantAnonymousMutation = { __typename?: 'Mutation', createTenantAnonymous: { __typename?: 'Tenant', id: string, name: string, locale?: string | null | undefined, logo: string, plan?: string | null | undefined, mfa?: boolean | null | undefined, createdAt?: string | null | undefined } };
+
+export type GetTenantQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetTenantQuery = { __typename?: 'Query', getTenant: { __typename?: 'Tenant', id: string, name: string, locale?: string | null | undefined, logo: string, plan?: string | null | undefined, createdAt?: string | null | undefined } };
+
+export type UpdateTenantMutationVariables = Exact<{
+  tenant: TenantInput;
+}>;
+
+
+export type UpdateTenantMutation = { __typename?: 'Mutation', updateTenant: { __typename?: 'Tenant', id: string, name: string, locale?: string | null | undefined, logo: string, plan?: string | null | undefined, mfa?: boolean | null | undefined, createdAt?: string | null | undefined } };
 
 export type CreateUsersMutationVariables = Exact<{
   userNames: Array<Scalars['String']> | Scalars['String'];
 }>;
 
 
-export type CreateUsersMutation = { __typename?: 'Mutation', createUsers: Array<{ __typename?: 'User', id?: string | null | undefined, fullName?: string | null | undefined, email?: string | null | undefined, username?: string | null | undefined, createdAt?: any | null | undefined, onboarded?: boolean | null | undefined, enabled?: boolean | null | undefined, role?: string | null | undefined, teams?: Array<string> | null | undefined }> };
+export type CreateUsersMutation = { __typename?: 'Mutation', createUsers: Array<{ __typename?: 'User', id: string, fullName?: string | null | undefined, email?: string | null | undefined, username?: string | null | undefined, createdAt?: string | null | undefined, onboarded?: boolean | null | undefined, enabled?: boolean | null | undefined, role?: string | null | undefined, teams?: Array<string> | null | undefined }> };
 
 export type DeleteUserMutationVariables = Exact<{
   userId: Scalars['String'];
@@ -140,7 +175,7 @@ export type DeleteUserMutation = { __typename?: 'Mutation', deleteUser: boolean 
 export type ListUsersQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type ListUsersQuery = { __typename?: 'Query', listUsers: Array<{ __typename?: 'User', id?: string | null | undefined, fullName?: string | null | undefined, email?: string | null | undefined, username?: string | null | undefined, createdAt?: any | null | undefined, onboarded?: boolean | null | undefined, enabled?: boolean | null | undefined, role?: string | null | undefined, teams?: Array<string> | null | undefined }> };
+export type ListUsersQuery = { __typename?: 'Query', listUsers: Array<{ __typename?: 'User', id: string, fullName?: string | null | undefined, email?: string | null | undefined, username?: string | null | undefined, createdAt?: string | null | undefined, onboarded?: boolean | null | undefined, enabled?: boolean | null | undefined, role?: string | null | undefined, teams?: Array<string> | null | undefined }> };
 
 export type SendPasswordResetLinkMutationVariables = Exact<{
   userId: Scalars['String'];
@@ -154,8 +189,55 @@ export type UpdateUserMutationVariables = Exact<{
 }>;
 
 
-export type UpdateUserMutation = { __typename?: 'Mutation', updateUser: { __typename?: 'User', id?: string | null | undefined, fullName?: string | null | undefined, email?: string | null | undefined, username?: string | null | undefined, createdAt?: any | null | undefined, onboarded?: boolean | null | undefined, enabled?: boolean | null | undefined, role?: string | null | undefined, teams?: Array<string> | null | undefined } };
+export type UpdateUserMutation = { __typename?: 'Mutation', updateUser: { __typename?: 'User', id: string, fullName?: string | null | undefined, email?: string | null | undefined, username?: string | null | undefined, createdAt?: string | null | undefined, onboarded?: boolean | null | undefined, enabled?: boolean | null | undefined, role?: string | null | undefined, teams?: Array<string> | null | undefined } };
 
+export const GetAppAnonymousDocument = gql`
+    query GetAppAnonymous {
+  getAppAnonymous {
+    name
+    logo
+    privacyPolicyUrl
+    termsOfServiceUrl
+    uiUrl
+    websiteUrl
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class GetAppAnonymousGQL extends Apollo.Query<GetAppAnonymousQuery, GetAppAnonymousQueryVariables> {
+    document = GetAppAnonymousDocument;
+    
+    constructor(apollo: Apollo.Apollo) {
+      super(apollo);
+    }
+  }
+export const CreateTenantAnonymousDocument = gql`
+    mutation CreateTenantAnonymous($tenant: CreateTenantInput!) {
+  createTenantAnonymous(tenant: $tenant) {
+    id
+    name
+    locale
+    logo
+    plan
+    mfa
+    createdAt
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class CreateTenantAnonymousGQL extends Apollo.Mutation<CreateTenantAnonymousMutation, CreateTenantAnonymousMutationVariables> {
+    document = CreateTenantAnonymousDocument;
+    
+    constructor(apollo: Apollo.Apollo) {
+      super(apollo);
+    }
+  }
 export const GetTenantDocument = gql`
     query GetTenant {
   getTenant {
@@ -180,13 +262,14 @@ export const GetTenantDocument = gql`
     }
   }
 export const UpdateTenantDocument = gql`
-    mutation UpdateTenant($name: String!, $locale: String!) {
-  updateTenant(name: $name, locale: $locale) {
+    mutation UpdateTenant($tenant: TenantInput!) {
+  updateTenant(tenant: $tenant) {
     id
     name
     locale
     logo
     plan
+    mfa
     createdAt
   }
 }

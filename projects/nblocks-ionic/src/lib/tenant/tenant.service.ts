@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { GetTenantGQL, Tenant, UpdateTenantGQL } from '../generated/graphql';
+import { CreateTenantAnonymousGQL, CreateTenantInput, GetTenantGQL, Tenant, UpdateTenantGQL } from '../generated/graphql';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +11,7 @@ export class TenantService {
   constructor(
     private readonly getTenantGQL: GetTenantGQL,
     private readonly updateTenantGQL: UpdateTenantGQL,
+    private readonly createTenantAnonymousGQL: CreateTenantAnonymousGQL
   ) { }
 
   getTenant():Observable<Tenant>{
@@ -18,6 +19,10 @@ export class TenantService {
   }
 
   updateTenant(name: string, locale: string):void {
-    this.updateTenantGQL.mutate({name, locale}).subscribe();
+    this.updateTenantGQL.mutate({tenant: {name, locale}}).subscribe();
+  }
+
+  createTenantAnonymous(tenant: CreateTenantInput):void {
+    this.createTenantAnonymousGQL.mutate({tenant}).subscribe();
   }
 }

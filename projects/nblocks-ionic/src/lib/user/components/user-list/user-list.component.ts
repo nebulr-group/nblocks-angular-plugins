@@ -74,7 +74,7 @@ export class UserListComponent implements OnInit, OnDestroy {
   async showInviteUsersModal(): Promise<void> {
     const result = await this.popoverService.presentModal('medium', InviteUsersModalComponent);
     if (result.data) {
-      const data: InviteUsersModalComponentResult = result.data;
+      const data: InviteUsersModalComponentResult = result.data as InviteUsersModalComponentResult;
       if (data.action == InviteUsersModalComponent.SUBMIT_ACTION) {
         this.loaderService.showLoader();
         this._inviteUsers(data.emails);
@@ -85,7 +85,7 @@ export class UserListComponent implements OnInit, OnDestroy {
   async presentUserPopover(user:User): Promise<void> {
     const result = await this.popoverService.presentModal('small', UserPopoverComponent, {user});
     if (result.data) {
-      const data: UserPopoverComponentResult = result.data;
+      const data: UserPopoverComponentResult = result.data as UserPopoverComponentResult;
       switch(data.action) {
         case UserPopoverComponent.RESET_PASSWORD_ACTION:
           await this._presentResetPasswordModal(user);

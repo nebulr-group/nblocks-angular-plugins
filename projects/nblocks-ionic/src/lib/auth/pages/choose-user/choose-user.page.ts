@@ -84,8 +84,9 @@ export class ChooseUserPage implements OnInit {
         // Normal case, redirect to app root
         this.navCtrl.navigateRoot('');
       } else {
-        // Have app onboarding take over for a new user and new tenant
-        this.navCtrl.navigateRoot('onboarding');
+        // Have app onboarding take over for a new tenant
+        // TODO implement tenant onboarding
+        this.navCtrl.navigateRoot('');
       } 
     }
   }
