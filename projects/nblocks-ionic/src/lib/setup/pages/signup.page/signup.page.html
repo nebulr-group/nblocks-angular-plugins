@@ -15,6 +15,16 @@
             placeholder="your@email.com"
             (ionChange)="setEmail($event)"
           ></ion-input>
+          <ion-input
+            type="text"
+            placeholder="Firstname (optional)"
+            (ionChange)="setFirstName($event)"
+          ></ion-input>
+          <ion-input
+            type="text"
+            placeholder="Lastname (optional)"
+            (ionChange)="setLastName($event)"
+          ></ion-input>
           <ion-button [disabled]="!email" (click)="createTenant()"
             >Create</ion-button
           >

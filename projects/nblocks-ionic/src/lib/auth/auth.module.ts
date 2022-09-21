@@ -6,7 +6,7 @@ import { AuthRequestInterceptor } from './interceptors/auth-request.interceptor'
 import { AuthResponseInterceptor } from './interceptors/auth-response.interceptor';
 
 /** Http interceptor providers in outside-in order */
-export const AUTH_HTTP_INTERCEPTOR_PROVIDERS = [
+export const NBLOCKS_AUTH_HTTP_INTERCEPTORS = [
   { provide: HTTP_INTERCEPTORS, useClass: AuthRequestInterceptor, multi: true },
   { provide: HTTP_INTERCEPTORS, useClass: AuthResponseInterceptor, multi: true },
 ];

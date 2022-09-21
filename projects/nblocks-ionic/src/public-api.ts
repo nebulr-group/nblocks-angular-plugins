@@ -2,7 +2,7 @@
  * Public API Surface of nblocks-ionic
  */
 
-import { AUTH_HTTP_INTERCEPTOR_PROVIDERS } from './lib/auth/auth.module';
+import { NBLOCKS_AUTH_HTTP_INTERCEPTORS } from './lib/auth/auth.module';
 import { AuthService } from './lib/auth/auth.service';
 import { CurrentUser } from './lib/auth/models/current-user.model';
 import { NblocksIonicModule } from './lib/nblocks-ionic.module';
@@ -18,7 +18,7 @@ import { UserListComponent } from './lib/user/components/user-list/user-list.com
 export {
     NblocksIonicModule, 
     LibConfig, 
-    AUTH_HTTP_INTERCEPTOR_PROVIDERS, 
+    NBLOCKS_AUTH_HTTP_INTERCEPTORS, 
     AuthService,
     PopoverService,
     CurrentUser, 

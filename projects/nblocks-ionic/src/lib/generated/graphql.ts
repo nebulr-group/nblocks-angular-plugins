@@ -26,9 +26,9 @@ export type App = {
 };
 
 export type CreateTenantInput = {
-  email: Scalars['String'];
   logo?: InputMaybe<Scalars['String']>;
   name?: InputMaybe<Scalars['String']>;
+  owner: TenantOwnerInput;
   plan: Scalars['String'];
 };
 
@@ -113,6 +113,12 @@ export type TenantInput = {
   locale?: InputMaybe<Scalars['String']>;
   mfa?: InputMaybe<Scalars['Boolean']>;
   name?: InputMaybe<Scalars['String']>;
+};
+
+export type TenantOwnerInput = {
+  email: Scalars['String'];
+  firstName?: InputMaybe<Scalars['String']>;
+  lastName?: InputMaybe<Scalars['String']>;
 };
 
 export type User = {
