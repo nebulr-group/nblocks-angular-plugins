@@ -1,16 +1,39 @@
 #container {
+  margin-top: 34px;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#container h2 {
+  font-size: 2rem;
+  margin-bottom: 13px;
 }
 
 #container p {
-  font-size: 16px;
-  line-height: 22px;
-
+  font-size: 13px;
+  margin-bottom: 21px;
+  margin-top: 0;
+  line-height: 20px;
   color: #8c8c8c;
-
-  margin: 0;
 }
 
 #container ion-input {
-  margin-top: 20px;
+  padding: 10px 12px;
+  max-width: 237px;
+  background: #ffffff;
+  border: 2px solid rgba(4, 9, 33, 0.32);
+  border-radius: 8px;
+}
+
+#container ion-input:not(:first-of-type) {
+  margin-top: 13px;
+}
+
+#container ion-button {
+  width: 100%;
+  margin-top: 13px;
+  max-width: 237px;
 }
