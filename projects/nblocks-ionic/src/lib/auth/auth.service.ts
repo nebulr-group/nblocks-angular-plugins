@@ -12,6 +12,10 @@ import { CurrentUser } from './models/current-user.model';
   providedIn: 'root',
 })
 export class AuthService {
+  static readonly AUTH_ROUTE_PREFIX = '/auth';
+  static readonly AUTH_LOGIN_ROUTE = '/auth/login';
+  static readonly ASSETS_ROUTE_PREFIXES = ['./assets', 'assets']
+
   private readonly TOKEN_STORAGE_KEY = "x-auth-token";
   private readonly MFA_TOKEN_STORAGE_KEY = "x-mfa-token";
   private readonly USER_STORAGE_KEY = "x-tenant-user-id";
@@ -51,25 +55,54 @@ export class AuthService {
       if (await this.authenticated()) {
         this.userDidAuthenticate();
       } else {
-        await this._redirectUnauthenticatedUser();
+        await this.handleAuthenticatedUserRedirect();
       }
     } else {
-      await this._redirectUnauthenticatedUser();
+      await this.handleAuthenticatedUserRedirect();
     }
   }
 
-  private async _redirectUnauthenticatedUser(): Promise<void> {
-    if (!this.isOpenRoute(this.router.url)) {
-      await this.router.navigateByUrl("/auth/login");
-    }
-  }
-
-  isOpenRoute(route: string): boolean {
-    if (this.nBlocksLibService.config.openRoutes.includes(route)) {
+  /**
+   * Redirecting will happen if current route is not part of the Auth routes e.g /auth/*. or any of the configured openRoutes.
+   * Returns true on if the user was redirected, false if not
+   */
+  async handleAuthenticatedUserRedirect(): Promise<boolean> {
+    if (!this.isOnAuthRoute() && !this.isOnOpenUrl()) {
+      console.log(
+        'Request is missing authToken and made outside of the /auth route and open routes fron environment - going to login screen'
+      );
+      await this.router.navigateByUrl(AuthService.AUTH_LOGIN_ROUTE);
       return true;
     } else {
-      return false;
+      return false
     }
+  }
+
+  private _getUrlWithoutParams() {
+    const urlTree = this.router.parseUrl(this.router.url);
+    urlTree.queryParams = {};
+    return urlTree.toString();
+  }
+
+  /**
+   * Is user currently on any of the Auth routes?
+   * @returns 
+   */
+  isOnAuthRoute(): boolean {
+    return this._getUrlWithoutParams().startsWith(AuthService.AUTH_ROUTE_PREFIX);
+  }
+
+  /**
+   * Is user currently on any of the Open routes?
+   * TODO support wildcard *
+   * @returns 
+   */
+  isOnOpenUrl(): boolean {
+    return this.nBlocksLibService.config.openRoutes.includes(this._getUrlWithoutParams());
+  }
+
+  static isAssetsUrl(url: string): boolean {
+    return AuthService.ASSETS_ROUTE_PREFIXES.filter(p => url.startsWith(p)).length > 0
   }
 
   getTrademarkParams(): {year: string} {
