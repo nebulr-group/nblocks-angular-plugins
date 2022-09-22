@@ -1,5 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Storage } from '@capacitor/storage';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -36,6 +37,7 @@ export class AuthService {
 
   constructor(
     private readonly httpClient: HttpClient,
+    private readonly router: Router,
     private readonly nBlocksLibService: NBlocksLibService
   ) {
     this.BASE_URL = this.nBlocksLibService.config.apiHost; 
@@ -45,9 +47,29 @@ export class AuthService {
   }
 
   private async checkCurrentUserAuthenticated(): Promise<void> {
-    if (await this.hasFullAuthContext())
-      if (await this.authenticated())
+    if (await this.hasFullAuthContext()) {
+      if (await this.authenticated()) {
         this.userDidAuthenticate();
+      } else {
+        await this._redirectUnauthenticatedUser();
+      }
+    } else {
+      await this._redirectUnauthenticatedUser();
+    }
+  }
+
+  private async _redirectUnauthenticatedUser(): Promise<void> {
+    if (!this.isOpenRoute(this.router.url)) {
+      await this.router.navigateByUrl("/auth/login");
+    }
+  }
+
+  isOpenRoute(route: string): boolean {
+    if (this.nBlocksLibService.config.openRoutes.includes(route)) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   getTrademarkParams(): {year: string} {
