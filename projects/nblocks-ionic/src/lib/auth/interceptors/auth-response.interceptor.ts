@@ -6,24 +6,21 @@ import {
   HttpRequest,
 } from '@angular/common/http';
 import { Injectable, Injector } from '@angular/core';
-import { Router } from '@angular/router';
-import { NavController } from '@ionic/angular';
-import { Observable, of, throwError } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { NBlocksLibService } from '../../nblocks-lib.service';
 import { ToastService } from '../../shared/toast.service';
+import { AuthService } from '../auth.service';
 
 @Injectable()
 export class AuthResponseInterceptor implements HttpInterceptor {
-  private authRoute = '/auth/';
-  private authLoginRoute = '/auth/login';
+
   private graphQLUrl: string;
 
   constructor(
-    private readonly navCtrl: NavController,
     private readonly injector: Injector,
-    private readonly router: Router,
-    private readonly nBlocksLibService: NBlocksLibService
+    private readonly nBlocksLibService: NBlocksLibService,
+    private readonly authService: AuthService
   ) {
     this.graphQLUrl = this.nBlocksLibService.config.graphqlPath;
   }
@@ -64,15 +61,16 @@ export class AuthResponseInterceptor implements HttpInterceptor {
     switch (error.status) {
       case 401:
         console.log("Caught 401 error", error);
-        if (!this.router.url.startsWith(this.authRoute)) {
-          this.navCtrl.navigateRoot(this.authLoginRoute);
-          this._presentToast(["UNAUTHORIZED"], false);
-        }
+        this.authService.handleAuthenticatedUserRedirect().then(redirected => {
+          if (redirected) {
+            this._presentToast(["UNAUTHORIZED"], false);
+          }
+        });
         break;
 
       case 403:
         console.log("Caught 403 error", error);
-        if (!this.router.url.startsWith(this.authRoute)) {
+        if (!this.authService.isOnAuthRoute()) {
           this._presentToast(["FORBIDDEN"], true);
         }
         break;

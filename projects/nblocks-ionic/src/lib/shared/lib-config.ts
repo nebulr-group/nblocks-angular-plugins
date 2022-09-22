@@ -56,7 +56,7 @@ export const defaultLibConfig = (config: Partial<LibConfig>): LibConfig => {
     logoPath: 'https://nebulr-group.github.io/nblocks-docs/img/logo.png',
     privacyPolicyUrl: "https://www.myapp.com/privacy",
     graphqlPath: "/graphql",
-    openRoutes: ["/", '/setup/start', '/setup/signup'],
+    openRoutes: ['/setup/start', '/setup/signup'],
     roles: ["OWNER", "ADMIN", "MANAGER", "VIEWER"],
     languages: ['en','sv'],
     passwordComplexity: false, // Sensible default (dev)
