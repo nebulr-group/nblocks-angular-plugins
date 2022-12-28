@@ -32,7 +32,7 @@
     "@graphql-codegen/cli": "2.3.0",
     "@graphql-codegen/typescript": "2.4.1",
     "@graphql-codegen/typescript-apollo-angular": "3.3.1",
-    "@graphql-codegen/typescript-operations": "2.2.1",
+    "@graphql-codegen/typescript-operations": "2.5.11",
     "@ionic/angular": "^5.8.5",
     "@ngx-translate/core": "^13.0.0",
     "@ngx-translate/http-loader": "^6.0.0",
